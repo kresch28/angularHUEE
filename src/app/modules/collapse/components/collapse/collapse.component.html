@@ -1,0 +1,9 @@
+<div [class.open]="open">
+    <div (click)="onClick($event)">
+        <span class="arrow">&gt;</span>
+        {{ title }}
+    </div>
+    <div class="collapse-body" *ngIf="open">
+        <ng-content></ng-content>
+    </div>
+</div>

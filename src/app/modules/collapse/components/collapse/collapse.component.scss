@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  font-family: sans-serif;
+}
+
+.arrow {
+  display: inline-block;
+}
+
+.open .arrow {
+  transform: rotate(90deg);
+}
+
+.collapse-body {
+  padding: 5px 0 10px;
+}
