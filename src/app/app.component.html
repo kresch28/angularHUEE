@@ -1,38 +1,7 @@
-<div class="container">
-  <h1>My awesome app!</h1>
-  <nav>
-    <ul>
-      <li>
-        <a routerLink="/">Home</a>
-      </li>
-      <li>
-        <a routerLink="/about">About</a>
-      </li>
-    </ul>
-  </nav>
+<app-header></app-header>
 
-  <hr>
-  <router-outlet></router-outlet>
-  <hr>
-  FOOTER
+<div class="container marginHeader">
+	<router-outlet></router-outlet>
 </div>
 
-<div class="container mt-5">
-  <h1>Normal Mode</h1>
-  <app-search-box></app-search-box>
-
-  <h1>Template Mode</h1>
-  <app-search-box>
-    <div *appSearchBoxTemplate="let item = searchItem" class="text-primary">
-      <div class="d-flex">
-        <div>
-          <app-loading-spinner></app-loading-spinner>
-        </div>
-        <div>
-          <div>{{ item.title }}</div>
-          <div>{{ item.id }}</div>
-        </div>
-      </div>
-    </div>
-  </app-search-box>
-</div>
+<app-footer></app-footer>

@@ -1,0 +1,19 @@
+<div class="container mt-5">
+	<h1>Normal Mode</h1>
+	<app-search-box></app-search-box>
+	
+	<h1>Template Mode</h1>
+	<app-search-box>
+		<div *appSearchBoxTemplate="let item = searchItem" class="text-primary">
+			<div class="d-flex">
+				<div>
+					<app-loading-spinner></app-loading-spinner>
+				</div>
+				<div>
+					<div>{{ item.title }}</div>
+					<div>{{ item.id }}</div>
+				</div>
+			</div>
+		</div>
+	</app-search-box>
+</div>
