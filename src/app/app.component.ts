@@ -6,9 +6,10 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  title = 'login-app';
   add = true;
 
-  addOrRemoveCollapsible() {
+  /*addOrRemoveCollapsible() {
     this.add = !this.add;
-  }
+  }*/
 }

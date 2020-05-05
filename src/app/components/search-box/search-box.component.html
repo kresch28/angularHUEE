@@ -1,0 +1,26 @@
+<input class="form-control" (input)="onSearch($event.target.value)">
+
+<div *ngIf="loading">
+  <div class="text-center p-3">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+</div>
+<div *ngIf="!loading">
+  <pre *ngIf="error">{{ error | json }}</pre>
+
+  <div class="list-group">
+    <ng-container *ngFor="let item of todos; trackBy: trackByFn;">
+
+      <ng-container *ngIf="itemTemplate">
+        <div *ngTemplateOutlet="itemTemplate.templateRef; context: { searchItem: item }"></div>
+      </ng-container>
+
+      <ng-container *ngIf="!itemTemplate">
+        <a class="list-group-item list-group-item-action">
+          {{ item.title }}
+        </a>
+      </ng-container>
+
+    </ng-container>
+  </div>
+</div>
