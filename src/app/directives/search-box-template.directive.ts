@@ -1,8 +1,13 @@
-import { Directive, TemplateRef } from '@angular/core';
+import {Directive, ElementRef, TemplateRef} from '@angular/core';
 
 @Directive({
-  selector: '[appSearchBoxTemplate]'
+	selector: '[appSearchBoxTemplate]'
 })
 export class SearchBoxTemplateDirective {
-  constructor(public templateRef: TemplateRef<any>) {}
+
+	constructor(private element: ElementRef, public templateRef: TemplateRef<any>) {
+		console.log("element", element);
+		console.log("template", templateRef);
+	}
+
 }

@@ -1,19 +1,38 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { RegisterComponent } from './components/register/register.component';
-import { AboutComponent } from './components/about/about.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AboutComponent} from './components/about/about.component';
+import {AccordionExerciseComponent} from './components/exercises/exercise-accodion-collapsible/accordion-exercise/accordion-exercise.component';
+import {RegisterFormExerciseComponent} from './components/exercises/exercise-register-form/register-form-exercise/register-form-exercise.component';
+import {SearchBoxExerciseComponent} from './components/exercises/exercise-search-box/search-box-exercise/search-box-exercise.component';
+import {WelcomeComponent} from './components/welcome/welcome.component';
+import {ExerciseOverviewComponent} from './components/exercises/exercise-overview/exercise-overview.component';
 
 
 const routes: Routes = [{
-  path: '',
-  component: RegisterComponent,
+	path: '',
+	component: WelcomeComponent,
 }, {
-  path: 'about',
-  component: AboutComponent,
+	path: 'about',
+	component: AboutComponent,
+}, {
+	path: 'exercises',
+	component: ExerciseOverviewComponent,
+	children: [
+		{
+			path: 'accordion',
+			component: AccordionExerciseComponent,
+		}, {
+			path: 'register',
+			component: RegisterFormExerciseComponent,
+		}, {
+			path: 'search',
+			component: SearchBoxExerciseComponent,
+		}]
 }];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

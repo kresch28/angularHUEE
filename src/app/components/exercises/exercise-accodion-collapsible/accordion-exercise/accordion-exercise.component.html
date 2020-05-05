@@ -1,0 +1,16 @@
+<button (click)="addOrRemoveCollapsible()">Add/remove</button>
+
+<app-accordion>
+	<app-collapsible title="collapse 1">
+		some collapse content
+	</app-collapsible>
+	
+	<app-collapsible title="collapse 2">
+		some collapse content
+	</app-collapsible>
+	
+	<app-collapsible title="collapse 3" *ngIf="add">
+		some collapse content
+	</app-collapsible>
+</app-accordion>
+
