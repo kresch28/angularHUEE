@@ -1,5 +1,5 @@
 <div class="d-flex">
-	<h2 (click)="itemClicked.emit($event)">{{ todo.title }} -
+	<h2 (click)="itemClicked.emit($event)">--> {{ todo.title }} -
 		<span>{{ todo.done ? "done" : "still up" }}</span>
 	</h2>
 	<span class="btn" (click)="itemToRemove.emit($event)">X</span>
