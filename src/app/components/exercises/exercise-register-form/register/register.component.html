@@ -1,61 +1,60 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label>Username</label>
-    <input
-      class="form-control"
-      [class.is-valid]="form.get('username').valid"
-      [class.is-invalid]="form.get('username').invalid"
-      formControlName="username"
-    >
-    <div *ngTemplateOutlet="required; context: { $implicit: 'username' }"></div>
-  </div>
-  <div class="form-group">
-    <label>E-Mail</label>
-    <input
-      class="form-control"
-      [class.is-invalid]="form.get('email').invalid"
-      [class.is-valid]="form.get('email').valid"
-      formControlName="email"
-    >
-    <div *ngTemplateOutlet="required; context: { $implicit: 'email' }"></div>
-    <pre>{{ form.get('email').errors | json }}</pre>
-  </div>
-  <div
-    class="form-group">
-    <label>Password</label>
-    <input
-      class="form-control"
-      [class.is-invalid]="form.get('password').invalid"
-      [class.is-valid]="form.get('password').valid"
-      type="password"
-      formControlName="password"
-    >
-    <ng-container *ngTemplateOutlet="required; context: { $implicit: 'password' }"></ng-container>
-  </div>
-  <div
-    class="form-group">
-    <label>Password repeat</label>
-    <input
-      class="form-control"
-      [class.is-invalid]="form.get('passwordRepeat').invalid || form.errors?.passwordRepeat"
-      [class.is-valid]="form.get('passwordRepeat').valid && !form.errors?.passwordRepeat"
-      type="password"
-      formControlName="passwordRepeat"
-    >
-    <ng-container *ngTemplateOutlet="required; context: { $implicit: 'passwordRepeat' }"></ng-container>
-
-    <div class="invalid-feedback" *ngIf="form.errors?.passwordRepeat">
-      The passwords don't match!
-    </div>
-  </div>
-
-
-
-  <button type="submit">Submit</button>
+	<div class="form-group">
+		<label>Username</label>
+		<input
+			class="form-control"
+			[class.is-valid]="form.get('username').valid"
+			[class.is-invalid]="form.get('username').invalid"
+			formControlName="username"
+		>
+		<div *ngTemplateOutlet="required; context: { $implicit: 'username' }"></div>
+	</div>
+	<div class="form-group">
+		<label>E-Mail</label>
+		<input
+			class="form-control"
+			[class.is-invalid]="form.get('email').invalid"
+			[class.is-valid]="form.get('email').valid"
+			formControlName="email"
+		>
+		<div *ngTemplateOutlet="required; context: { $implicit: 'email' }"></div>
+		<pre>{{ form.get('email').errors | json }}</pre>
+	</div>
+	<div
+		class="form-group">
+		<label>Password</label>
+		<input
+			class="form-control"
+			[class.is-invalid]="form.get('password').invalid"
+			[class.is-valid]="form.get('password').valid"
+			type="password"
+			formControlName="password"
+		>
+		<ng-container *ngTemplateOutlet="required; context: { $implicit: 'password' }"></ng-container>
+	</div>
+	<div
+		class="form-group">
+		<label>Password repeat</label>
+		<input
+			class="form-control"
+			[class.is-invalid]="form.get('passwordRepeat').invalid || form.errors?.passwordRepeat"
+			[class.is-valid]="form.get('passwordRepeat').valid && !form.errors?.passwordRepeat"
+			type="password"
+			formControlName="passwordRepeat"
+		>
+		<ng-container *ngTemplateOutlet="required; context: { $implicit: 'passwordRepeat' }"></ng-container>
+		
+		<div class="invalid-feedback" *ngIf="form.errors?.passwordRepeat">
+			The passwords don't match!
+		</div>
+	</div>
+	
+	
+	<button type="submit">Submit</button>
 </form>
 
 <ng-template #required let-fieldName>
-  <div *ngIf="form.get(fieldName).errors?.required" class="invalid-feedback">
-    This field is required
-  </div>
+	<div *ngIf="form.get(fieldName).errors?.required" class="invalid-feedback">
+		This field is required
+	</div>
 </ng-template>

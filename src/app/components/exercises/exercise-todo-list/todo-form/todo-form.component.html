@@ -1,0 +1,5 @@
+<form (ngSubmit)="onSubmit()">
+	<label for="inputTitle">New Todo:</label>
+	<input id="inputTitle" name="title" type="text" [value]="title" (input)="onInput($event)">
+	<button type="submit">Add</button>
+</form>

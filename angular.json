@@ -122,8 +122,13 @@
               "devServerTarget": "huee-angular:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "huee-angular"
 }

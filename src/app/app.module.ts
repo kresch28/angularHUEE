@@ -13,10 +13,15 @@ import {AboutComponent} from './components/about/about.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CollapseModule} from "./modules/collapse/collapse.module";
 import {SearchBoxExerciseComponent} from './components/exercises/exercise-search-box/search-box-exercise/search-box-exercise.component';
-import { RegisterFormExerciseComponent } from './components/exercises/exercise-register-form/register-form-exercise/register-form-exercise.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
-import { ExerciseOverviewComponent } from './components/exercises/exercise-overview/exercise-overview.component';
+import {WelcomeComponent} from './components/welcome/welcome.component';
+import {ExerciseOverviewComponent} from './components/exercises/exercise-overview/exercise-overview.component';
 import {RegisterFormModule} from "./components/exercises/exercise-register-form/register-form/register-form.module";
+import {RegisterFormExerciseComponent} from "./components/exercises/exercise-register-form/register-form-exercise/register-form-exercise.component";
+import { TodoListExerciseComponent } from './components/exercises/exercise-todo-list/todo-list-exercise/todo-list-exercise.component';
+import {TodoModule} from "./modules/todo.module";
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../environments/environment";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
 
 
 @NgModule({
@@ -29,17 +34,22 @@ import {RegisterFormModule} from "./components/exercises/exercise-register-form/
 		AboutComponent,
 		SearchBoxExerciseComponent,
 		WelcomeComponent,
-		ExerciseOverviewComponent
+		ExerciseOverviewComponent,
+		RegisterFormExerciseComponent,
+		TodoListExerciseComponent
 	],
-	imports: [
-		BrowserModule,
-		RegisterFormModule,
-		AppRoutingModule,
-		HttpClientModule,
-		FormsModule,
-		ReactiveFormsModule,
-		CollapseModule,
-	],
+    imports: [
+        BrowserModule,
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFirestoreModule,
+        RegisterFormModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CollapseModule,
+        TodoModule,
+    ],
 	providers: [SearchService],
 	bootstrap: [AppComponent]
 })
