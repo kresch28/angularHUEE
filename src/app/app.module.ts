@@ -17,6 +17,7 @@ import { RegisterFormExerciseComponent } from './components/exercises/exercise-r
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ExerciseOverviewComponent } from './components/exercises/exercise-overview/exercise-overview.component';
 import {RegisterFormModule} from './components/exercises/exercise-register-form/register-form/register-form.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 @NgModule({
@@ -40,9 +41,10 @@ import {RegisterFormModule} from './components/exercises/exercise-register-form/
 		FormsModule,
 		ReactiveFormsModule,
 		CollapseModule,
+		MDBBootstrapModule.forRoot()
 	],
 	providers: [SearchService],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
 })
 export class AppModule {
 }
