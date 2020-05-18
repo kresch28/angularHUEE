@@ -4,6 +4,7 @@ import {RegisterModel} from '../components/exercises/exercise-register-form/regi
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import { Store } from '@ngxs/store';
 import { RegisterAction} from '../components/exercises/exercise-register-form/register.action';
+import { RegisterStateModel} from '../components/exercises/exercise-register-form/register.store';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class LoginService {
   private todosSubject$ = new Subject<RegisterModel[]>();
   private firestoreReference: AngularFirestoreCollection<RegisterModel>;
 
-  constructor(private firestore: AngularFirestore, private store: Store) {
+  constructor(private firestore: AngularFirestore, private store: Store
+  ) {
     this.firestoreReference = firestore.collection<RegisterModel>('users');
     this.firestoreReference.valueChanges().subscribe(items => {
       this.login = items;
@@ -44,6 +46,7 @@ export class LoginService {
 
     console.log(this.firestoreReference.ref);
     this.store.dispatch(new RegisterAction(username));
+    console.log(this.store);
     return of(user);
   }
 

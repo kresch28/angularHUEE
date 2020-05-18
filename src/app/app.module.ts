@@ -26,6 +26,7 @@ import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { ProfileComponent } from './components/profile/profile/profile.component';
 import {LoginService} from './services/login.service';
+import {RegisterStore} from './components/exercises/exercise-register-form/register.store';
 
 
 @NgModule({
@@ -56,9 +57,9 @@ import {LoginService} from './services/login.service';
 		TodoModule,
 		MDBBootstrapModule.forRoot(),
         TodoModule,
-		/*NgxsModule.forRoot([LoginState], {
+		NgxsModule.forRoot([RegisterStore], {
 			developmentMode: !environment.production
-		})*/
+		})
 	],
 	providers: [SearchService, LoginService],
 	bootstrap: [AppComponent]
