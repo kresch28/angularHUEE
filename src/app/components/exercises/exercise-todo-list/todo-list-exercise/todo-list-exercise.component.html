@@ -1,0 +1,2 @@
+<app-todo-form (submittedText)="handleNewTodo($event)"></app-todo-form>
+<app-todo-list (itemToRemove)="handleItemToRemove($event)" (itemClicked)="handleTodoClick($event)" [items]="items"></app-todo-list>

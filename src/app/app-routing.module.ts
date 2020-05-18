@@ -6,6 +6,8 @@ import {RegisterFormExerciseComponent} from './components/exercises/exercise-reg
 import {SearchBoxExerciseComponent} from './components/exercises/exercise-search-box/search-box-exercise/search-box-exercise.component';
 import {WelcomeComponent} from './components/welcome/welcome.component';
 import {ExerciseOverviewComponent} from './components/exercises/exercise-overview/exercise-overview.component';
+import {TodoListExerciseComponent} from './components/exercises/exercise-todo-list/todo-list-exercise/todo-list-exercise.component';
+import {ProfileComponent} from './components/profile/profile/profile.component';
 
 
 const routes: Routes = [{
@@ -21,13 +23,21 @@ const routes: Routes = [{
 		{
 			path: 'accordion',
 			component: AccordionExerciseComponent,
+			children: [
+				{ path: 'profile', component: ProfileComponent } ]
 		}, {
 			path: 'register',
 			component: RegisterFormExerciseComponent,
 		}, {
 			path: 'search',
 			component: SearchBoxExerciseComponent,
+		}, {
+			path: 'todo',
+			component: TodoListExerciseComponent,
 		}]
+}, {
+	path: 'profile',
+	component: ProfileComponent,
 }];
 
 @NgModule({

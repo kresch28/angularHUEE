@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-organizer-2d471": {
+      "hosting": {
+        "huee-angular": [
+          "angular-organizer-2d471"
+        ]
+      }
+    }
+  }
+}

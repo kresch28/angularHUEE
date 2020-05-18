@@ -1,0 +1,19 @@
+{
+	"hosting": [
+		{
+			"target": "huee-angular",
+			"public": "dist/huee-angular",
+			"ignore": [
+				"firebase.json",
+				"**/.*",
+				"**/node_modules/**"
+			],
+			"rewrites": [
+				{
+					"source": "**",
+					"destination": "/index.html"
+				}
+			]
+		}
+	]
+}
