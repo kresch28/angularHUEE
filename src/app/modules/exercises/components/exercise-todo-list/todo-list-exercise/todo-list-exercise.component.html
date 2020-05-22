@@ -1,2 +1,12 @@
 <app-todo-form (submittedText)="handleNewTodo($event)"></app-todo-form>
+
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<div *ngIf="hasError" class="alert alert-danger">
+	Something went wrong :(
+	<div>
+		{{ error | json }}
+	</div>
+</div>
+
 <app-todo-list (itemToRemove)="handleItemToRemove($event)" (itemClicked)="handleTodoClick($event)" [items]="items"></app-todo-list>

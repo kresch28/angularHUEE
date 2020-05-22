@@ -1,0 +1,6 @@
+<div class="d-flex">
+	<h2 (click)="itemClicked.emit($event)">--> {{ todo.title }}
+		<span *ngIf="todo.done"> - ✅</span>
+	</h2>
+	<span class="btn" (click)="itemToRemove.emit($event)">❌</span>
+</div>

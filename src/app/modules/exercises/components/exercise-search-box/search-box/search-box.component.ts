@@ -1,8 +1,8 @@
 import {Component, ContentChild, OnInit} from '@angular/core';
-import {SearchResult, SearchService} from '../../../../services/search.service';
+import {SearchResult, SearchService} from '../../../../../services/search.service';
 import {of, Subject} from 'rxjs';
 import {catchError, debounceTime, switchMap, tap} from 'rxjs/operators';
-import {SearchBoxTemplateDirective} from '../../../../directives/search-box-template.directive';
+import {SearchBoxTemplateDirective} from '../../../../../directives/search-box-template.directive';
 
 @Component({
 	selector: 'app-search-box',

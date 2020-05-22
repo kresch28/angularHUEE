@@ -1,67 +1,60 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { NgxsModule } from '@ngxs/store';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {SearchBoxComponent} from './components/exercises/exercise-search-box/search-box/search-box.component';
 import {HttpClientModule} from '@angular/common/http';
 import {SearchService} from './services/search.service';
-import {LoadingSpinnerComponent} from './components/exercises/exercise-search-box/loading-spinner/loading-spinner.component';
-import {SearchBoxTemplateDirective} from './directives/search-box-template.directive';
-import {RegisterComponent} from './components/exercises/exercise-register-form/register/register.component';
 import {AboutComponent} from './components/about/about.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CollapseModule} from './modules/collapse/collapse.module';
-import {SearchBoxExerciseComponent} from './components/exercises/exercise-search-box/search-box-exercise/search-box-exercise.component';
-import { RegisterFormExerciseComponent } from './components/exercises/exercise-register-form/register-form-exercise/register-form-exercise.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
-import { ExerciseOverviewComponent } from './components/exercises/exercise-overview/exercise-overview.component';
-import {RegisterFormModule} from './components/exercises/exercise-register-form/register-form/register-form.module';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { TodoListExerciseComponent } from './components/exercises/exercise-todo-list/todo-list-exercise/todo-list-exercise.component';
-import {TodoModule} from './modules/todo.module';
+import {WelcomeComponent} from './components/welcome/welcome.component';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import { ProfileComponent } from './components/profile/profile/profile.component';
-import {LoginService} from './services/login.service';
-import {RegisterStore} from './components/exercises/exercise-register-form/register.store';
+import {ProfileComponent} from './components/user/profile/profile.component';
+import {AuthorisationService} from './services/authorisation.service';
+import {LogoutComponent} from './components/logout/logout.component';
+import {AngularFireAuthModule} from "@angular/fire/auth";
+import {firebaseUiAuthConfig} from "../../FirebaseUiAuthConfig";
+import {LoginComponent} from './components/login/login.component';
+import {NgxAuthFirebaseUIModule} from 'ngx-auth-firebaseui';
+import {MatPasswordStrengthModule} from '@angular-material-extensions/password-strength';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ExercisesModule} from "./modules/exercises/exercises.module";
+import {FooterComponent} from "./components/footer/footer.component";
+import {HeaderComponent} from "./components/header/header.component";
+import {NavigationComponent} from "./components/navigation/navigation.component";
 
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		SearchBoxComponent,
-		LoadingSpinnerComponent,
-		SearchBoxTemplateDirective,
-		RegisterComponent,
 		AboutComponent,
-		SearchBoxExerciseComponent,
+		FooterComponent,
+		HeaderComponent,
+		LoginComponent,
+		LogoutComponent,
+		NavigationComponent,
+		ProfileComponent,
 		WelcomeComponent,
-		ExerciseOverviewComponent,
-		RegisterFormExerciseComponent,
-		TodoListExerciseComponent,
-		ProfileComponent
 	],
 	imports: [
 		BrowserModule,
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFirestoreModule,
-		RegisterFormModule,
+		AngularFireAuthModule,
 		AppRoutingModule,
 		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
-		CollapseModule,
-		TodoModule,
 		MDBBootstrapModule.forRoot(),
-        TodoModule,
-		NgxsModule.forRoot([RegisterStore], {
-			developmentMode: !environment.production
-		})
+		NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'angularHUEE_factory', firebaseUiAuthConfig),
+		MatPasswordStrengthModule,
+		BrowserAnimationsModule,
+		ExercisesModule
 	],
-	providers: [SearchService, LoginService],
+	providers: [SearchService, AuthorisationService],
 	bootstrap: [AppComponent]
 })
 export class AppModule {
