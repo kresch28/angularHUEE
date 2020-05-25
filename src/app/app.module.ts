@@ -25,6 +25,8 @@ import {ExercisesModule} from "./modules/exercises/exercises.module";
 import {FooterComponent} from "./components/footer/footer.component";
 import {HeaderComponent} from "./components/header/header.component";
 import {NavigationComponent} from "./components/navigation/navigation.component";
+import { OrganigramComponent } from './components/welcome/organigram/organigram/organigram.component';
+import { OrganigramItemComponent } from './components/welcome/organigram/organigram-item/organigram-item.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import {NavigationComponent} from "./components/navigation/navigation.component"
 		NavigationComponent,
 		ProfileComponent,
 		WelcomeComponent,
+		OrganigramComponent,
+		OrganigramItemComponent,
 	],
 	imports: [
 		BrowserModule,

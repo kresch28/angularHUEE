@@ -15,7 +15,7 @@ export class AuthorisationService {
 			} else {
 				console.log('Logged out :(');
 			}
-		})
+		});
 	}
 
 	get loggedInUser(): User {
