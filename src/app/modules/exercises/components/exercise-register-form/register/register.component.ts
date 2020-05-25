@@ -38,12 +38,15 @@ export class RegisterComponent implements OnInit {
 			const password = this.form.get('password');
 
 			this.authorisationService.createNewUser(email.value, password.value, userName.value);
+			/*
 			this.authorisationService.createMember(userName.value)
 				.then(member => {
 					member.subscribe();
 				})
 				.catch(error => {
 				});
+				
+			 */
 		}
 	}
 

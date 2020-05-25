@@ -3,30 +3,21 @@ import {Observable, of, Subject} from 'rxjs';
 import * as firebase from "firebase";
 import {User} from "firebase";
 import {Router} from "@angular/router";
-import {OrganigramComponent} from '../components/welcome/organigram/organigram/organigram.component';
-import {OrganigramModel} from '../components/welcome/organigram/organigram-item/organigram-item.component';
+import {OrganigramUserModel} from '../components/organigram/organigram-item/organigram-item.component';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthorisationService {
-	private members: OrganigramModel[] = [];
-	private membersSubject$ = new Subject<OrganigramModel[]>();
-	public firestoreReference: AngularFirestoreCollection<OrganigramModel>;
+	private members: OrganigramUserModel[] = [];
+	private membersSubject$ = new Subject<OrganigramUserModel[]>();
+	public firestoreReference: AngularFirestoreCollection<OrganigramUserModel>;
 
 	public role = 'Developer';
 
 	constructor(private router: Router, private firestore: AngularFirestore) {
-		firebase.auth().onAuthStateChanged((response) => {
-			if (response) {
-				console.log('Logged in :)');
-			} else {
-				console.log('Logged out :(');
-			}
-		});
-
-		this.firestoreReference = firestore.collection<OrganigramModel>('members');
+		this.firestoreReference = firestore.collection<OrganigramUserModel>('users');
 		this.firestoreReference.valueChanges()
 			.subscribe(value => {
 				this.members = value;
@@ -61,6 +52,8 @@ export class AuthorisationService {
 
 	}
 
+	/*
+
 	async createMember(username: string): Promise<Observable<OrganigramModel>> {
 		const member: OrganigramModel = {
 			username: username,
@@ -77,8 +70,6 @@ export class AuthorisationService {
 		console.log(this.firestoreReference);
 	}
 
-
-	/*
 	update(id: string, todo: TodoModel): Observable<TodoModel> {
 	  this.firestoreReference.doc(id).set(todo)
 		  .then((resolved) => {
