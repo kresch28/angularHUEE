@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {AuthorisationService} from '../../services/authorisation.service';
 
 @Component({
 	selector: 'app-login',
@@ -7,8 +8,12 @@ import {Component} from '@angular/core';
 })
 export class LoginComponent {
 
+	constructor(public authService: AuthorisationService) {
+	}
+
 	printUser(event) {
 		console.log("Logged in user successfully", event);
+		console.log(this.authService.firestoreReference);
 	}
 
 	printError(event) {
