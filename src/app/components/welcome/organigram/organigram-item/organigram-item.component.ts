@@ -1,5 +1,9 @@
 import { Component, Input} from '@angular/core';
-import { OrganigramModel} from '../organigram/organigram.component';
+
+export interface OrganigramModel {
+  username: string,
+  role: string,
+}
 
 @Component({
   selector: 'app-organigram-item',
@@ -7,5 +11,6 @@ import { OrganigramModel} from '../organigram/organigram.component';
   styleUrls: ['./organigram-item.component.scss']
 })
 export class OrganigramItemComponent{
-  @Input() members: OrganigramModel;
+  @Input() user: OrganigramModel;
+
 }

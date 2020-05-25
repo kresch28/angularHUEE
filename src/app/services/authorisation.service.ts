@@ -1,14 +1,23 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import * as firebase from "firebase";
 import {User} from "firebase";
 import {Router} from "@angular/router";
+import {OrganigramComponent} from '../components/welcome/organigram/organigram/organigram.component';
+import {OrganigramModel} from '../components/welcome/organigram/organigram-item/organigram-item.component';
+import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthorisationService {
-	constructor(private router: Router) {
+	private members: OrganigramModel[] = [];
+	private membersSubject$ = new Subject<OrganigramModel[]>();
+	public firestoreReference: AngularFirestoreCollection<OrganigramModel>;
+
+	public role = 'Developer';
+
+	constructor(private router: Router, private firestore: AngularFirestore) {
 		firebase.auth().onAuthStateChanged((response) => {
 			if (response) {
 				console.log('Logged in :)');
@@ -16,6 +25,19 @@ export class AuthorisationService {
 				console.log('Logged out :(');
 			}
 		});
+
+		this.firestoreReference = firestore.collection<OrganigramModel>('members');
+		this.firestoreReference.valueChanges()
+			.subscribe(value => {
+				this.members = value;
+				this.membersSubject$.next(this.members);
+			}, error => {
+				this.membersSubject$.error(error);
+			});
+	}
+
+	get members$(){
+		return (this.membersSubject$.hasError) ? this.membersSubject$.thrownError : this.membersSubject$.asObservable();
 	}
 
 	get loggedInUser(): User {
@@ -23,7 +45,6 @@ export class AuthorisationService {
 	}
 
 	createNewUser(email: string, password: string, username: string = ''): Promise<Observable<firebase.User>> | null {
-
 		return firebase.auth().createUserWithEmailAndPassword(email, password)
 			.then(value => {
 				value.user.displayName = username;
@@ -31,12 +52,31 @@ export class AuthorisationService {
 				this.router.navigate(['/profile']);
 
 				return of(value.user);
+
 			})
 			.catch((error) => {
 				// TODO: show the error
 				return null;
 			});
+
 	}
+
+	async createMember(username: string): Promise<Observable<OrganigramModel>> {
+		const member: OrganigramModel = {
+			username: username,
+			role: this.role
+		};
+
+		return await this.firestoreReference.doc(member.username).set(member)
+			.then(() => {
+				return Promise.resolve<Observable<OrganigramModel>>(of(member));
+			}, (error) => {
+				return Promise.reject(error);
+			});
+
+		console.log(this.firestoreReference);
+	}
+
 
 	/*
 	update(id: string, todo: TodoModel): Observable<TodoModel> {
