@@ -5,8 +5,8 @@ import { LoginComponent } from './login.component';
 import {AuthorisationService} from '../../services/authorisation.service';
 
 describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+	let component: LoginComponent;
+	let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

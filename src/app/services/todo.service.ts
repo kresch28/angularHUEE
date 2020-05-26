@@ -16,7 +16,20 @@ export class TodoService {
 		this.firestoreReference.valueChanges()
 			.subscribe(value => {
 				this.todos = value;
-				this.todosSubject$.next(this.todos);
+				
+				this.todos.forEach(todo =>
+				{
+					if (todo.sortNumber) {
+						todo.sortNumber++;
+					}
+					else {
+						todo.sortNumber = 1;
+					}
+				}) // increase every sort number by one, so newly added todos are on top of the rendered list, as they are initialized with a sort number of 0
+				
+				this.todosSubject$.next(this.todos.sort((a, b) => {
+					return a.sortNumber - b.sortNumber;
+				}));
 			}, error => {
 				this.todosSubject$.error(error);
 			});
@@ -32,7 +45,8 @@ export class TodoService {
 			title: title,
 			createdAt: new Date(),
 			updatedAt: new Date(),
-			done: false
+			done: false,
+			sortNumber: 0
 		};
 
 		return await this.firestoreReference.doc(todo.id).set(todo)
@@ -43,10 +57,10 @@ export class TodoService {
 			});
 	}
 
-	async update(id: string, todo: TodoModel): Promise<Observable<TodoModel>> {
-		return await this.firestoreReference.doc(id).set(todo)
+	async update(todo: TodoModel): Promise<Observable<TodoModel>> {
+		return await this.firestoreReference.doc(todo.id).set(todo)
 			.then(() => {
-				return Promise.resolve(of(this.todos.find(currentTodo => currentTodo.id === id)));
+				return Promise.resolve(of(this.todos.find(currentTodo => currentTodo.id === todo.id)));
 			}, (error) => {
 				return Promise.reject(error);
 			});

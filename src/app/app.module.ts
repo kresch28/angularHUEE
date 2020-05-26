@@ -27,8 +27,10 @@ import {ExercisesModule} from "./modules/exercises/exercises.module";
 import {FooterComponent} from "./components/footer/footer.component";
 import {HeaderComponent} from "./components/header/header.component";
 import {NavigationComponent} from "./components/navigation/navigation.component";
-import { OrganigramComponent } from './components/welcome/organigram/organigram/organigram.component';
-import { OrganigramItemComponent } from './components/welcome/organigram/organigram-item/organigram-item.component';
+import { OrganigramComponent } from './components/organigram/organigram/organigram.component';
+import { OrganigramItemComponent } from './components/organigram/organigram-item/organigram-item.component';
+import {TreeDiagramModule} from 'angular2-tree-diagram';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NodesListService} from './components/welcome/organigram/services/nodes-list.service';
 
 
@@ -52,10 +54,8 @@ import {NodesListService} from './components/welcome/organigram/services/nodes-l
 		AngularFirestoreModule,
 		AngularFireAuthModule,
 		AppRoutingModule,
-		Router,
 		HttpClientModule,
 		FormsModule,
-		FormBuilder,
 		ReactiveFormsModule,
 		MDBBootstrapModule.forRoot(),
 		NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'angularHUEE_factory', firebaseUiAuthConfig),
@@ -63,7 +63,10 @@ import {NodesListService} from './components/welcome/organigram/services/nodes-l
 		BrowserAnimationsModule,
 		ExercisesModule,
 		HttpClient,
-		NodesListService
+		NodesListService,
+		ExercisesModule,
+		TreeDiagramModule,
+		DragDropModule
 	],
 	providers: [SearchService, AuthorisationService, NodesListService],
 	bootstrap: [AppComponent]

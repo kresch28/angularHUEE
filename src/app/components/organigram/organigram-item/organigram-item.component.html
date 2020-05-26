@@ -1,18 +1,19 @@
-<div class="container">
+<div class="container organigramm-user-card" cdkDrag cdkDragBoundary=".organigramm-bounds" (cdkDragEnded)="itemDropped($event)" [cdkDragFreeDragPosition]="dragPosition">
     <div class="row">
         <div class="col-sm"></div>
         <div class="col-sm">
             <mdb-card class="align-items-center">
                 <!--Card image-->
-                <img class="organigramm-picture profile-picture mt-4" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg" alt="Card image cap"/>
+                <img class="organigramm-picture profile-picture mt-4" [src]="user.photoUrl == null ? 'https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg' : user.photoUrl" alt="Card image cap"/>
                 <!--Card content-->
                 <mdb-card-body>
 
                     <!--Title-->
                     <mdb-card-title>
-                    <p>{{ user.username}}</p>
+                    <h3>{{ user.displayName}}</h3>
                     </mdb-card-title>
                     <p>{{ user.role}}</p>
+                    <p>{{ user | json}}</p>
                 </mdb-card-body>
             </mdb-card>
             <div id="tree-node-{{ node.guid }}" [ngClass]="{'tree-element-container': !0, 'tree-element-has-children': node.hasChildren()}"

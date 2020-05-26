@@ -1,6 +1,6 @@
-<div class="d-flex">
-	<h2 (click)="itemClicked.emit($event)">--> {{ todo.title }}
-		<span *ngIf="todo.done"> - ✅</span>
+<div class="d-flex draggable">
+	<h2 (click)="itemClicked.emit($event)">--> {{ todo.title }} - {{ todo.sortNumber }}
+		<span *ngIf="todo.done" style="color: green"> - ✅</span>
 	</h2>
 	<span class="btn" (click)="itemToRemove.emit($event)">❌</span>
 </div>

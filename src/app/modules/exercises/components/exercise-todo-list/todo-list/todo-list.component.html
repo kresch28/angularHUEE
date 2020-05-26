@@ -1,5 +1,18 @@
-<app-todo-list-item *ngFor="let todo of items; trackBy: trackByFunction" [todo]="todo" (itemClicked)="onItemClicked(todo)" (itemToRemove)="onItemToRemove(todo)">
-	
-</app-todo-list-item>
+<div class="container draggableListContainer">
+	<h3>open ToDos</h3>
+	<div
+		cdkDropList
+		#todoList="cdkDropList"
+		[cdkDropListData]="items"
+		class="example-list draggableList"
+		(cdkDropListDropped)="drop($event)">
+		
+		<app-todo-list-item cdkDrag
+			*ngFor="let todo of items; trackBy: trackByFunction" [todo]="todo"
+			(itemClicked)="onItemClicked(todo)"
+			(itemToRemove)="onItemToRemove(todo)">
+		</app-todo-list-item>
+	</div>
+</div>
 
 <div *ngIf="!items || items.length <= 0">Waiting for ToDos to arrive :)</div>
