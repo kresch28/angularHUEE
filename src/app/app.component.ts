@@ -8,9 +8,9 @@ import * as firebase from 'firebase';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	title = 'login-app';
+	title = 'huee-angular';
 	
 	constructor() {
-		firebase.initializeApp(environment.firebase);
+		// firebase.initializeApp(environment.firebase);
 	}
 }

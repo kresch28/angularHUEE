@@ -2,6 +2,10 @@ import {Component, Input, OnInit, Output} from '@angular/core';
 import {OrganigramModel} from '../organigram-item/organigram-item.component';
 import {AuthorisationService} from '../../../../services/authorisation.service';
 
+import { DomSanitizer } from '@angular/platform-browser';
+
+import { NodesListService } from '../services/nodes-list.service';
+
 @Component({
   selector: 'app-organigram',
   templateUrl: './organigram.component.html',
@@ -13,7 +17,32 @@ error: any;
 isLoading: boolean = false;
 hasError: boolean = false;
 
-  constructor(public authService: AuthorisationService) {
+  public nodes;
+  private config = {
+    nodeWidth: 200,
+    nodeHeight: 100
+  };
+  private paneDragging = false;
+  private paneTransformState;
+  private zoom = 1;
+  private paneX = 0;
+  private paneY = 0;
+
+  public get paneTransform() {
+    return this.paneTransformState;
+  }
+
+  public set paneTransform(value) {
+    this.paneTransformState = value;
+  }
+
+
+  constructor(public authService: AuthorisationService, private nodesSrv: NodesListService, private sanitizer: DomSanitizer) {
+  }
+
+  @Input() set data(data: OrganigramModel[] ) {
+    data = this.members;
+    this.nodes = this.nodesSrv.loadNodes(data, this.config);
   }
 
   ngOnInit(): void {
@@ -32,6 +61,53 @@ hasError: boolean = false;
   {
     this.error = error;
     this.hasError = true;
+  }
+
+  public get nodeMaker() {
+    return this.nodesSrv.makerNode();
+  }
+
+  public newNode() {
+    this.nodesSrv.newNode();
+  }
+
+  public onmousedown() {
+    this.paneDragging = true;
+  }
+
+  public onmousemove(event) {
+    if (this.paneDragging) {
+      const { movementX, movementY } = event;
+
+      this.paneX += movementX;
+      this.paneY += movementY;
+      this.makeTransform();
+    }
+  }
+
+  public onmouseup() {
+    this.paneDragging = false;
+  }
+
+  public makeTransform() {
+    this.paneTransform = this.sanitizer.bypassSecurityTrustStyle(
+        `translate(${this.paneX}px, ${this.paneY}px) scale(${this.zoom})`
+    );
+  }
+
+  public preventMouse(event) {
+    event.stopPropagation();
+  }
+
+  public onmousewheel(event) {
+    let delta;
+
+    event.preventDefault();
+    delta = event.detail || event.wheelDelta;
+    this.zoom += delta / 1000 / 2;
+    this.zoom = Math.min(Math.max(this.zoom, 0.2), 3);
+
+    this.makeTransform();
   }
 
   // @Input() members: OrganigramModel[];

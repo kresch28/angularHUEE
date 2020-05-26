@@ -2,11 +2,13 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
+import {Router} from '@angular/router';
 import {AppComponent} from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {SearchService} from './services/search.service';
 import {AboutComponent} from './components/about/about.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {WelcomeComponent} from './components/welcome/welcome.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {AngularFireModule} from '@angular/fire';
@@ -27,6 +29,7 @@ import {HeaderComponent} from "./components/header/header.component";
 import {NavigationComponent} from "./components/navigation/navigation.component";
 import { OrganigramComponent } from './components/welcome/organigram/organigram/organigram.component';
 import { OrganigramItemComponent } from './components/welcome/organigram/organigram-item/organigram-item.component';
+import {NodesListService} from './components/welcome/organigram/services/nodes-list.service';
 
 
 @NgModule({
@@ -49,16 +52,20 @@ import { OrganigramItemComponent } from './components/welcome/organigram/organig
 		AngularFirestoreModule,
 		AngularFireAuthModule,
 		AppRoutingModule,
+		Router,
 		HttpClientModule,
 		FormsModule,
+		FormBuilder,
 		ReactiveFormsModule,
 		MDBBootstrapModule.forRoot(),
 		NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'angularHUEE_factory', firebaseUiAuthConfig),
 		MatPasswordStrengthModule,
 		BrowserAnimationsModule,
-		ExercisesModule
+		ExercisesModule,
+		HttpClient,
+		NodesListService
 	],
-	providers: [SearchService, AuthorisationService],
+	providers: [SearchService, AuthorisationService, NodesListService],
 	bootstrap: [AppComponent]
 })
 export class AppModule {
