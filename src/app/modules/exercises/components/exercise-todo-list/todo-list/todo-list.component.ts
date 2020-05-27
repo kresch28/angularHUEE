@@ -40,18 +40,15 @@ export class TodoListComponent {
 	}
 
 	drop(event: CdkDragDrop<TodoModel[]>) {
-		if (event.previousContainer === event.container && this.items && this.items.length > 1) {
-			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-			
-			this.items.forEach((todo, arrayIndex) => {
-				const changedToDo: TodoModel = {
-					...this.items[event.previousIndex],
-					sortNumber: arrayIndex
-				}
+		moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+		this.items.forEach((todo, arrayIndex) => {
+			const changedToDo: TodoModel = {
+				...this.items[arrayIndex],
+				sortNumber: arrayIndex
+			}
 
-				this.todoService.update(changedToDo);
-			});
-		}
+			this.todoService.update(changedToDo);
+		});
 	}
 	
 	private increaseSortNumber(todo: TodoModel, index: number)

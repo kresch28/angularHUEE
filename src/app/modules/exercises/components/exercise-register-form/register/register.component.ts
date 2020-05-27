@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
-import {AuthorisationService} from '../../../../../services/authorisation.service';
+import {AuthenticationService} from '../../../../../services/authentication.service';
 import {firebaseUiAuthConfig} from '../../../../../../../FirebaseUiAuthConfig';
 
 @Component({
@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
 	email: string;
 	password: string;
 
-	constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, public authorisationService: AuthorisationService) {
+	constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, public authorisationService: AuthenticationService) {
 		this.form = this.buildForm();
 		this.activatedRoute.paramMap.subscribe(params => {
 			if (params.has('username')) {

@@ -1,6 +1,14 @@
 <h2>Organigramm Team IM531</h2>
 
 <div class="organigramm-bounds">
-	<app-organigram-item *ngFor="let user of members;" [user]="user">
-	</app-organigram-item>
+	<div *ngIf="hasError">
+		<div class="alert-danger">
+			{{ error.message }}
+		</div>
+	</div>
+	<div *ngIf="!hasError">
+		<h2>{{ currentView.title }}</h2>
+		<app-organigram-item *ngFor="let user of currentView.users;" [user]="user">
+		</app-organigram-item>
+	</div>
 </div>

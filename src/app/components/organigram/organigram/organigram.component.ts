@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {OrganigramUserModel} from '../organigram-item/organigram-item.component';
-import {AuthorisationService} from '../../../services/authorisation.service';
+import {UserService} from "../../../services/user.service";
+import {OrganigramViewModel, OrganigramViewVisibility} from "../models";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
 	selector: 'app-organigram',
@@ -8,22 +9,41 @@ import {AuthorisationService} from '../../../services/authorisation.service';
 	styleUrls: ['./organigram.component.scss']
 })
 export class OrganigramComponent implements OnInit {
-	members: OrganigramUserModel[];
+	currentView: OrganigramViewModel;
 	error: any;
 	isLoading: boolean = false;
 	hasError: boolean = false;
 
-	constructor(public authService: AuthorisationService) {
+	constructor(public usersService: UserService, public authService: AuthenticationService) {
 	}
 
 	ngOnInit(): void {
 		this.isLoading = true;
-		this.authService.members$.subscribe(members => {
-			this.members = members;
-		}, error => {
-			this.handleError(error);
-		});
-		console.log(this.members);
+
+		if (this.authService.isLoggedIn)
+		{
+			if (this.currentView == null) {
+				this.currentView = {
+					title: "New View",
+					users: [],
+					owner: null,
+					createdAt: new Date(),
+					updatedAt: new Date(),
+					visibility: OrganigramViewVisibility.Private
+				};
+			}
+
+			this.usersService.allUsers$.subscribe((users) => {
+				console.log(users);
+				this.currentView.users = this.usersService.allUsersAsOrganigramViewUser
+			}, error => {
+				this.handleError(error);
+			});
+		}
+		else
+		{
+			this.handleError(new Error("You must be logged in to create an own organigram!"))
+		}
 
 		this.isLoading = false;
 	}
@@ -32,30 +52,4 @@ export class OrganigramComponent implements OnInit {
 		this.error = error;
 		this.hasError = true;
 	}
-
-	// @Input() members: OrganigramModel[];
-
-	/*
-  handleNewMember(username: string) {
-
-    this.isLoading = true;
-
-    this.authService.createMember(username)
-        .then(member => {
-          member.subscribe();
-        })
-        .catch(error => {
-          this.error = error;
-        });
-
-    this.isLoading = false;
-  }
-
-  add(member: OrganigramModel) {
-    this.members.push(member);
-    console.log(this.members);
-  }
-  
-	 */
-
 }

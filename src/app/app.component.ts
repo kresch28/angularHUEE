@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {environment} from '../environments/environment';
-import * as firebase from 'firebase';
 
 @Component({
 	selector: 'app-root',
@@ -9,7 +7,7 @@ import * as firebase from 'firebase';
 })
 export class AppComponent {
 	title = 'huee-angular';
-	
+
 	constructor() {
 		// firebase.initializeApp(environment.firebase);
 	}

@@ -16,20 +16,15 @@ export class TodoService {
 		this.firestoreReference.valueChanges()
 			.subscribe(value => {
 				this.todos = value;
-				
-				this.todos.forEach(todo =>
-				{
-					if (todo.sortNumber) {
-						todo.sortNumber++;
-					}
-					else {
-						todo.sortNumber = 1;
-					}
-				}) // increase every sort number by one, so newly added todos are on top of the rendered list, as they are initialized with a sort number of 0
-				
+
 				this.todosSubject$.next(this.todos.sort((a, b) => {
 					return a.sortNumber - b.sortNumber;
 				}));
+				this.todos.forEach((todo, index) =>
+				{
+					todo.sortNumber = index;
+				})
+				
 			}, error => {
 				this.todosSubject$.error(error);
 			});

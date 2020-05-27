@@ -1,17 +1,18 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {OrganigramModel} from '../organigram-item/organigram-item.component';
-import {AuthorisationService} from '../../../../services/authorisation.service';
+import {OrganigramModel} from '../organigram-node-item/organigram-node-item.component';
 
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { NodesListService } from '../services/nodes-list.service';
+import {AuthenticationService} from "../../../../services/authentication.service";
+import {UserService} from "../../../../services/user.service";
 
 @Component({
-  selector: 'app-organigram',
-  templateUrl: './organigram.component.html',
-  styleUrls: ['./organigram.component.scss']
+  selector: 'app-organigram-node',
+  templateUrl: './organigram-node.component.html',
+  styleUrls: ['./organigram-node.component.scss']
 })
-export class OrganigramComponent implements OnInit{
+export class OrganigramNodeComponent implements OnInit{
 members: OrganigramModel[];
 error: any;
 isLoading: boolean = false;
@@ -37,7 +38,7 @@ hasError: boolean = false;
   }
 
 
-  constructor(public authService: AuthorisationService, private nodesSrv: NodesListService, private sanitizer: DomSanitizer) {
+  constructor(public usersService: UserService, private nodesSrv: NodesListService, private sanitizer: DomSanitizer) {
   }
 
   @Input() set data(data: OrganigramModel[] ) {
@@ -47,7 +48,7 @@ hasError: boolean = false;
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.authService.members$.subscribe(members => {
+    this.usersService.allUsers$.subscribe(members => {
       this.members = members;
     }, error => {
       this.handleError(error);
@@ -116,6 +117,7 @@ hasError: boolean = false;
 
     this.isLoading = true;
 
+    /*
     this.authService.createMember(username)
         .then(member => {
           member.subscribe();
@@ -123,6 +125,7 @@ hasError: boolean = false;
         .catch(error => {
           this.error = error;
         });
+     */
 
     this.isLoading = false;
   }

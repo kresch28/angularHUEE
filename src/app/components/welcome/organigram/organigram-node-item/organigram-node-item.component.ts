@@ -2,8 +2,8 @@ import { Component, Input} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { NodesListService } from '../services/nodes-list.service';
-import { TreeDiagramNode } from '../classes/node.class';
-import { TreeDiagramNodeMaker } from '../classes/node-maker.class';
+import { TreeDiagramNode } from '../classes';
+import { TreeDiagramNodeMaker } from '../classes';
 
 export interface OrganigramModel {
   username: string,
@@ -11,11 +11,11 @@ export interface OrganigramModel {
 }
 
 @Component({
-  selector: 'app-organigram-item',
-  templateUrl: './organigram-item.component.html',
-  styleUrls: ['./organigram-item.component.scss']
+  selector: 'app-organigram-node-item',
+  templateUrl: './organigram-node-item.component.html',
+  styleUrls: ['./organigram-node-item.component.scss']
 })
-export class OrganigramItemComponent{
+export class OrganigramNodeItemComponent{
   @Input() user: OrganigramModel;
 
   public node: TreeDiagramNode | TreeDiagramNodeMaker;

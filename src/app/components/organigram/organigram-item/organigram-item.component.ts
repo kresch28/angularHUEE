@@ -1,16 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {CdkDragDrop, CdkDragEnd} from "@angular/cdk/drag-drop";
-import {element} from "protractor";
-
-export interface OrganigramUserModel {
-	uid: string,
-	displayName: string | null,
-	role: string | null,
-	email: string,
-	phoneNumber: string | null,
-	photoUrl: string | null,
-	providerId: string,
-}
+import {CdkDragMove} from "@angular/cdk/drag-drop";
+import {OrganigramViewUserModel} from "../models";
 
 @Component({
 	selector: 'app-organigram-item',
@@ -18,17 +8,14 @@ export interface OrganigramUserModel {
 	styleUrls: ['./organigram-item.component.scss']
 })
 export class OrganigramItemComponent {
-	@Input() user: OrganigramUserModel;
-	
+	@Input() user: OrganigramViewUserModel;
+
 	constructor() {
-		
 	}
 
-	itemDropped(event: CdkDragEnd)
-	{
-		console.log(event);
-		console.log(event.source.moved.subscribe((next) => {
-			console.log(next.pointerPosition);
-		}));
+	itemMoved(event: CdkDragMove) {
+		if (event.delta.x != 0 && event.delta.y != null) {
+			event.pointerPosition;
+		}
 	}
 }

@@ -1,5 +1,11 @@
+
 <div class="container">
-    <div class="row">
+	<h1>Your profile</h1>
+	
+	<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+	<div class="alert-danger" *ngIf="hasError">{{ error.message }}</div>
+	
+    <div *ngIf="!hasError" class="row">
         <div class="col-sm"></div>
         <div class="col-sm">
             <mdb-card class="align-items-center">
@@ -10,7 +16,7 @@
 
                     <!--Title-->
                     <mdb-card-title>
-                        <h4>{{username}}</h4>
+                        <h4>{{ user.displayName }}</h4>
                     </mdb-card-title>
 
                     <!--Text-->
@@ -23,3 +29,5 @@
         <div class="col-sm"></div>
     </div>
 </div>
+
+<ngx-auth-firebaseui-user></ngx-auth-firebaseui-user>

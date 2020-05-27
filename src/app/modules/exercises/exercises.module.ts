@@ -5,7 +5,6 @@ import {ExerciseOverviewComponent} from "./components/exercise-overview/exercise
 import {TodoListExerciseComponent} from "./components/exercise-todo-list/todo-list-exercise/todo-list-exercise.component";
 import {ExercisesRoutingModule} from "./exercises-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {FormBuilder} from "@angular/forms";
 import {SearchBoxComponent} from "./components/exercise-search-box/search-box/search-box.component";
 import {TodoListComponent} from "./components/exercise-todo-list/todo-list/todo-list.component";
 import {LoadingSpinnerComponent} from "./components/exercise-search-box/loading-spinner/loading-spinner.component";
@@ -37,11 +36,11 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 		FormsModule,
 		ReactiveFormsModule,
 		CollapseModule,
-		FormBuilder,
 		DragDropModule,
 	],
 	exports: [
-		ExercisesRoutingModule
+		ExercisesRoutingModule,
+		LoadingSpinnerComponent
 	]
 })
 export class ExercisesModule {

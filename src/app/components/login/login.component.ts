@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
-import {AuthorisationService} from '../../services/authorisation.service';
+import {Component, Input} from '@angular/core';
+import {AuthProvider} from "ngx-auth-firebaseui";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-login',
@@ -7,16 +8,15 @@ import {AuthorisationService} from '../../services/authorisation.service';
 	styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+	@Input() redirect: string = "";
 
-	constructor(public authService: AuthorisationService) {
+	providers: AuthProvider[];
+
+	constructor(private router: Router) {
+		this.providers = [AuthProvider.ANONYMOUS, AuthProvider.EmailAndPassword, AuthProvider.Google];
 	}
 
-	printUser(event) {
-		console.log("Logged in user successfully", event);
-		console.log(this.authService.firestoreReference);
-	}
-
-	printError(event) {
-		console.error("Logged in unsuccessful", event);
+	loggedInSuccessful(event) {
+		this.router.navigate([this.redirect]);
 	}
 }

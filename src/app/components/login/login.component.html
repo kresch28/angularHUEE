@@ -1,2 +1,5 @@
-<ngx-auth-firebaseui (onSuccess)="printUser($event)" (onError)="printError($event)"></ngx-auth-firebaseui>
+<ngx-auth-firebaseui (onSuccess)="loggedInSuccessful($event)"
+					 [providers]="providers">
+	
+</ngx-auth-firebaseui>
 
