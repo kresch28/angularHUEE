@@ -19,8 +19,7 @@ export class TodoListExerciseComponent implements OnInit {
 	ngOnInit(): void {
 		this.isLoading = true;
 		
-		// TODO: fix the issue, that sometimes the todos don't get rendered 
-		//  (to reproduce: in exercises overview click on ToDo list, click on any other exercise, click on ToDo list 
+		this.items = this.todoService.getTodos();
 
 		this.todoService.todos$.subscribe(todos => {
 			this.items = todos;

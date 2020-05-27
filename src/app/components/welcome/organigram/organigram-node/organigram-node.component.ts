@@ -5,7 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { NodesListService } from '../services/nodes-list.service';
 import {AuthenticationService} from "../../../../services/authentication.service";
-import {UserService} from "../../../../services/user.service";
+import {UserService} from "../../../../modules/organigram/services/user.service";
 
 @Component({
   selector: 'app-organigram-node',

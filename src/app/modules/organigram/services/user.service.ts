@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Subject} from "rxjs";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/firestore";
-import {OrganigramUserModel, OrganigramViewUserModel} from "../components/organigram/models";
+import {OrganigramUserModel, OrganigramViewUserModel} from "../components/models";
 
 
 @Injectable({
@@ -42,11 +42,22 @@ export class UserService {
 
 	userAsOrganigramViewUser(user: OrganigramUserModel): OrganigramViewUserModel
 	{
+		if (user == null) { return null; }
+		
 		return { ...user, position: { x: 0, y: 0 }, parents: [], children: [], additionalFields: [] };
 	}
 	
 	remove(uid: string)
 	{
 		this.firestoreReference.doc(uid).delete();
+	}
+	
+	getByUid(uid: string): OrganigramUserModel
+	{
+		this.users.forEach(user => {
+			if (user.uid == uid) { return user; }
+		});
+		
+		return null;
 	}
 }

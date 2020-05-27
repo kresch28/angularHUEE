@@ -37,6 +37,8 @@ export class AuthenticationService {
 	get isLoggedIn(): boolean {
 		return !!this.user;
 	}
+	
+	getUser(): User | null { return this.user; }
 
 	createNewUser(email: string, password: string, username: string = ''): Promise<Observable<firebase.User>> | null {
 		return this.angularFireAuth.createUserWithEmailAndPassword(email, password)

@@ -1,5 +1,19 @@
 <h1>Welcome :)</h1>
 
-<h3>Well come have a look at your latest edited organigram, but first you need to <a routerLink="/login">login</a></h3>
+<h3>
+	Well come have a look at publicly available organigrams from others or
+	<span [innerHTML]='authService.isLoggedIn ? "continue working on" : "login down below to see"'></span>
+	your latest edited organigrams
+</h3>
 
-<app-organigram></app-organigram>
+<ul>
+	<li>Some public organigram</li>
+	<li>TODO: load public organigrams or display an error, that there are none</li>
+</ul>
+
+<app-organigram-latest *ngIf="authService.isLoggedIn"></app-organigram-latest>
+
+<hr>
+<a routerLink="/login">
+	<div *ngIf="!authService.isLoggedIn" class="btn btn-block btn-outline-primary">Login</div>
+</a>

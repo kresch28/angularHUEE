@@ -1,5 +1,4 @@
 import {KeyValue} from "@angular/common";
-import {User} from "firebase";
 
 export enum OrganigramViewVisibility {
 	Private,
@@ -8,9 +7,10 @@ export enum OrganigramViewVisibility {
 }
 
 export interface OrganigramViewModel {
+	uid: string,
 	title: string,
-	users: OrganigramViewUserModel[],
-	owner: User,
+	usedUsersUid: string[],
+	ownerUid: string,
 	visibility: OrganigramViewVisibility,
 	createdAt: Date,
 	updatedAt: Date,
@@ -27,7 +27,7 @@ export interface OrganigramUserModel {
 
 export interface OrganigramViewUserModel extends OrganigramUserModel {
 	position: { x: number, y: number },
-	parents: OrganigramUserModel[] | null,
-	children: OrganigramUserModel[] | null,
+	parentsUid: string[],
+	childrenUid: string[],
 	additionalFields: KeyValue<string, string>[]
 }

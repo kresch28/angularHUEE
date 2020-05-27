@@ -6,6 +6,7 @@ import {ProfileComponent} from './components/user/profile/profile.component';
 import {LoginComponent} from "./components/login/login.component";
 import {LogoutComponent} from "./components/logout/logout.component";
 import {LoggedInGuard} from "ngx-auth-firebaseui";
+import {ErrorPageComponent} from "./components/error-page/error-page.component";
 
 
 const routes: Routes = [{
@@ -17,6 +18,7 @@ const routes: Routes = [{
 }, {
 	path: 'logout',
 	component: LogoutComponent,
+	canActivate: [ LoggedInGuard ]
 }, {
 	path: 'about',
 	component: AboutComponent,
@@ -24,6 +26,9 @@ const routes: Routes = [{
 	path: 'profile',
 	component: ProfileComponent,
 	canActivate: [ LoggedInGuard ]
+}, {
+	path: '**',
+	component: ErrorPageComponent
 }];
 
 @NgModule({

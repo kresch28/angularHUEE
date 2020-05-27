@@ -50,15 +50,4 @@ export class TodoListComponent {
 			this.todoService.update(changedToDo);
 		});
 	}
-	
-	private increaseSortNumber(todo: TodoModel, index: number)
-	{
-		if (this.items.length > index + 1 && this.items[index + 1].sortNumber >= todo.sortNumber) 
-		{ this.increaseSortNumber(this.items[index + 1], index + 1); }
-		
-		this.items[index].sortNumber++;
-		
-		if (this.items.length > index + 1 && this.items[index + 1].sortNumber >= todo.sortNumber) 
-		{ this.increaseSortNumber(this.items[index + 1], index + 1); }
-	}
 }

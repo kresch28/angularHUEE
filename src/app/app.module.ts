@@ -23,8 +23,6 @@ import {ExercisesModule} from "./modules/exercises/exercises.module";
 import {FooterComponent} from "./components/footer/footer.component";
 import {HeaderComponent} from "./components/header/header.component";
 import {NavigationComponent} from "./components/navigation/navigation.component";
-import {OrganigramComponent} from './components/organigram/organigram/organigram.component';
-import {OrganigramItemComponent} from './components/organigram/organigram-item/organigram-item.component';
 import {LoginComponent} from "./components/login/login.component";
 import {LogoutComponent} from "./components/logout/logout.component";
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -32,6 +30,8 @@ import {NodesListService} from './components/welcome/organigram/services/nodes-l
 import {OrganigramNodeComponent} from "./components/welcome/organigram/organigram-node/organigram-node.component";
 import {OrganigramNodeItemComponent} from "./components/welcome/organigram/organigram-node-item/organigram-node-item.component";
 import {FirebaseInitialisationService} from "./services/firebase-initialisation.service";
+import {ErrorPageComponent} from './components/error-page/error-page.component';
+import {OrganigramModule} from "./modules/organigram/organigram.module";
 
 
 @NgModule({
@@ -43,12 +43,11 @@ import {FirebaseInitialisationService} from "./services/firebase-initialisation.
 		LoginComponent,
 		LogoutComponent,
 		NavigationComponent,
-		OrganigramComponent,
-		OrganigramItemComponent,
 		ProfileComponent,
 		WelcomeComponent,
 		OrganigramNodeComponent,
-		OrganigramNodeItemComponent
+		OrganigramNodeItemComponent,
+		ErrorPageComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -56,16 +55,16 @@ import {FirebaseInitialisationService} from "./services/firebase-initialisation.
 		AngularFirestoreModule,
 		AngularFireAuthModule,
 		NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'angularHUEE_factory', firebaseUiAuthConfig),
-		AppRoutingModule,
 		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
 		MDBBootstrapModule.forRoot(),
 		MatPasswordStrengthModule,
 		BrowserAnimationsModule,
+		OrganigramModule,
 		ExercisesModule,
-		ExercisesModule,
-		DragDropModule
+		DragDropModule,
+		AppRoutingModule,
 	],
 	providers: [FirebaseInitialisationService, SearchService, AuthenticationService, NodesListService],
 	bootstrap: [AppComponent]

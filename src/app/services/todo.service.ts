@@ -20,19 +20,20 @@ export class TodoService {
 				this.todosSubject$.next(this.todos.sort((a, b) => {
 					return a.sortNumber - b.sortNumber;
 				}));
-				this.todos.forEach((todo, index) =>
-				{
+				this.todos.forEach((todo, index) => {
 					todo.sortNumber = index;
 				})
-				
+
 			}, error => {
 				this.todosSubject$.error(error);
 			});
 	}
 
-	get todos$() {
+	get todos$(): Observable<TodoModel[]> {
 		return (this.todosSubject$.hasError) ? this.todosSubject$.thrownError : this.todosSubject$.asObservable();
 	}
+	
+	getTodos(): TodoModel[] { return this.todos; }
 
 	async create(title: string): Promise<Observable<TodoModel>> {
 		const todo: TodoModel = {

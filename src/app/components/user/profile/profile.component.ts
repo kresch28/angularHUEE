@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit {
 	ngOnInit(): void {
 		this.loading = true;
 		this.hasError = false;
+		
+		this.user = this.authenticationService.getUser();
 
 		this.authenticationService.loggedInUser$.subscribe(next => {
 			this.user = next;
@@ -28,8 +30,7 @@ export class ProfileComponent implements OnInit {
 			this.error = error;
 			this.hasError = true;
 		});
-
+		
 		this.loading = false;
-		console.log(this.user);
 	}
 }

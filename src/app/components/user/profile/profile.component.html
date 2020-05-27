@@ -3,14 +3,14 @@
 	<h1>Your profile</h1>
 	
 	<app-loading-spinner *ngIf="loading"></app-loading-spinner>
-	<div class="alert-danger" *ngIf="hasError">{{ error.message }}</div>
+	<div class="alert-danger alert" *ngIf="hasError">{{ error.message }}</div>
 	
-    <div *ngIf="!hasError" class="row">
+    <div *ngIf="!hasError && !loading" class="row">
         <div class="col-sm"></div>
         <div class="col-sm">
             <mdb-card class="align-items-center">
                 <!--Card image-->
-                <img class="profile-picture mt-4" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg" alt="Card image cap"/>
+                <img class="profile-picture mt-4" [src]="user.photoURL == null ? 'https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg' : user.photoURL" alt="Card image cap"/>
                 <!--Card content-->
                 <mdb-card-body>
 
