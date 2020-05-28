@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {AuthorisationService} from '../../../../../services/authorisation.service';
@@ -38,15 +40,12 @@ export class RegisterComponent implements OnInit {
 			const password = this.form.get('password');
 
 			this.authorisationService.createNewUser(email.value, password.value, userName.value);
-			/*
-			this.authorisationService.createMember(userName.value)
+			/*this.authorisationService.createMember(userName.value)
 				.then(member => {
 					member.subscribe();
 				})
 				.catch(error => {
-				});
-				
-			 */
+				});*/
 		}
 	}
 

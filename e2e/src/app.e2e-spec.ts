@@ -8,16 +8,17 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display app structure', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('huee-angular app is running!');
+    expect(page.getTodoForm()).toBeDefined();
+    expect(page.getTodoList()).toBeDefined();
   });
-
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+  it('should add todo', () => {
+    page.navigateTo();
+    page.addTodo('todo 1');
+    const list = page.getTodoListContent();
+    expect(list.count()).toBe(3);
+    expect(page.getNthTodoTitle(0).getText()).toBe('todo 1');
   });
 });
+

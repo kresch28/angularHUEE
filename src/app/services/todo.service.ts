@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, of, Subject} from 'rxjs';
-import {TodoModel} from "../modules/exercises/components/exercise-todo-list/todo-list/todo-list.component";
-import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/firestore";
+import {TodoModel} from '../modules/exercises/components/exercise-todo-list/todo-list/todo-list.component';
+import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 
 @Injectable({
 	providedIn: 'root'

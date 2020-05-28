@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
+import {RouterModule} from "@angular/router";
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {SearchService} from './services/search.service';
@@ -12,6 +13,7 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {ProfileComponent} from './components/user/profile/profile.component';
 import {AuthorisationService} from './services/authorisation.service';
 import {LogoutComponent} from './components/logout/logout.component';
@@ -49,6 +51,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 		BrowserModule,
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFirestoreModule,
+		AngularFireDatabaseModule,
 		AngularFireAuthModule,
 		AppRoutingModule,
 		HttpClientModule,
