@@ -24,7 +24,6 @@ export class OrganigramLatestComponent extends LoadingAndErrorHandling implement
 		this.loading = true;
 
 		if (this.authService.isLoggedIn) {
-			
 			this.allOwnedViews = this.viewService.getViewsOfOwner(this.authService.getUser().uid);
 			this.viewService.getViewsOfOwner$(this.authService.getUser().uid).subscribe(next => {
 					this.allOwnedViews = next;

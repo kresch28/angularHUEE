@@ -6,7 +6,7 @@
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 
 
-<div class="btn btn-outline-secondary m-1" (click)="createNew()">Create new</div>
+<div *ngIf="authService.isLoggedIn && !authService.isAnonymousUser" class="btn btn-outline-secondary m-1" (click)="createNew()">Create new</div>
 
 <div *ngIf="hasError" class="alert-danger alert">{{ error.message }}</div>
 <div *ngIf="id != '' && !hasError" class="d-flex">

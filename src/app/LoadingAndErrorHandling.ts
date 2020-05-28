@@ -2,7 +2,7 @@ export class LoadingAndErrorHandling {
 	loading: boolean;
 	hasError: boolean;
 	error: Error;
-	
+
 	constructor() {
 		this.loading = false;
 		this.hasError = false;
