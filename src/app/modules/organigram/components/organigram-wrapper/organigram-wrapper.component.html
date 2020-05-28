@@ -10,8 +10,5 @@
 
 <div *ngIf="hasError" class="alert-danger alert">{{ error.message }}</div>
 <div *ngIf="id != '' && !hasError" class="d-flex">
-	<div cdkDropList id="allUsers" class="example-list" [cdkDropListData]="allUsers"> TODO: finish making users draggable from here to the main view
-		<app-organigram-item *ngFor="let user of allUsers;" [userUid]="user.uid" [preview]="true"></app-organigram-item>
-	</div>
 	<app-organigram [currentView]="currentView"></app-organigram>
 </div>

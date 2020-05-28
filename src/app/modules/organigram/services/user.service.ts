@@ -12,8 +12,6 @@ export class UserService {
 	private usersSubject$ = new Subject<OrganigramUserModel[]>();
 	public firestoreReference: AngularFirestoreCollection<OrganigramUserModel>;
 
-	public role = 'Developer';
-
 	constructor(private firestore: AngularFirestore) {
 		this.firestoreReference = firestore.collection<OrganigramUserModel>('users');
 		this.firestoreReference.valueChanges()
@@ -25,39 +23,48 @@ export class UserService {
 			});
 	}
 
-	get allUsers$(){
+	get allUsers$() {
 		return (this.usersSubject$.hasError) ? this.usersSubject$.thrownError : this.usersSubject$.asObservable();
 	}
-	
-	get allUsersAsOrganigramViewUser(): OrganigramViewUserModel[]
-	{
+
+	get allUsersAsOrganigramViewUser(): OrganigramViewUserModel[] {
 		let convertedUsers: OrganigramViewUserModel[] = [];
-		
+
 		this.users.forEach(user => {
 			convertedUsers = [...convertedUsers, this.userAsOrganigramViewUser(user)];
 		})
-		
+
 		return convertedUsers;
 	}
 
-	userAsOrganigramViewUser(user: OrganigramUserModel): OrganigramViewUserModel
-	{
-		if (user == null) { return null; }
-		
-		return { ...user, position: { x: 0, y: 0 }, parents: [], children: [], additionalFields: [] };
+	get allUsersUids(): string[] {
+		let uids: string[] = [];
+
+		this.users.forEach(user => uids = [...uids, user.uid]);
+
+		return uids;
 	}
-	
-	remove(uid: string)
-	{
+
+	userAsOrganigramViewUser(user: OrganigramUserModel): OrganigramViewUserModel {
+		if (user == null) {
+			return null;
+		}
+
+		return {...user, position: {x: 0, y: 0}, parentsUid: [], childrenUid: [], additionalFields: []};
+	}
+
+	remove(uid: string) {
 		this.firestoreReference.doc(uid).delete();
 	}
-	
-	getByUid(uid: string): OrganigramUserModel
-	{
+
+	getByUid(uid: string): OrganigramUserModel {
 		this.users.forEach(user => {
-			if (user.uid == uid) { return user; }
+			if (user.uid == uid) {
+				console.log("Found user: ", user);
+				return user;
+			}
 		});
-		
+
 		return null;
 	}
 }

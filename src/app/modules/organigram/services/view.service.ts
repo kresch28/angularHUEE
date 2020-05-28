@@ -3,6 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/firest
 import {OrganigramViewModel, OrganigramViewVisibility} from "../components/models";
 import {Observable, of, Subject} from "rxjs";
 import {AuthenticationService} from "../../../services/authentication.service";
+import {UserService} from "./user.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -13,7 +14,7 @@ export class ViewService {
 	private viewSubject$ = new Subject<OrganigramViewModel>();
 	public firestoreReference: AngularFirestoreCollection<OrganigramViewModel[]>;
 
-	constructor(private firestore: AngularFirestore, private authService: AuthenticationService) {
+	constructor(private firestore: AngularFirestore, private authService: AuthenticationService, private usersService: UserService) {
 		this.firestoreReference = firestore.collection<OrganigramViewModel[]>('view');
 	}
 	
@@ -41,7 +42,7 @@ export class ViewService {
 			createdAt: new Date(),
 			updatedAt: new Date(),
 			ownerUid: this.authService.getUser().uid,
-			usedUsersUid: []
+			usedUsersUid: this.usersService.allUsersUids
 		};
 
 		return new Promise((resolve, reject) => {
