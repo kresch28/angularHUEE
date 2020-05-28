@@ -13,7 +13,7 @@ export class AuthenticationService {
 	userSubject$: Subject<User | null> = new Subject<User | null>();
 	private user: User | null;
 
-	constructor(private initService: FirebaseInitialisationService, private router: Router, private angularFireAuth: AngularFireAuth) {
+	constructor(private initService: FirebaseInitialisationService, private router: Router, public angularFireAuth: AngularFireAuth) {
 		this.user = null;
 
 		angularFireAuth.authState.subscribe(next => {

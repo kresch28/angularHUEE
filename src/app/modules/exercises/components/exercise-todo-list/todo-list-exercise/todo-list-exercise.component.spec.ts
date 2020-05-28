@@ -7,22 +7,18 @@ let TodoServiceStub: any;
 describe('TodoListExerciseComponent', () => {
   let component: TodoListExerciseComponent;
   let fixture: ComponentFixture<TodoListExerciseComponent>;
+  let todoService: jasmine.SpyObj<TodoService>
 
   beforeEach(async(() => {
-    TodoServiceStub = jasmine.createSpyObj('TodoService', ['add']);
-    TodoServiceStub.add.and.returnValue(null);
+    // TodoServiceStub = jasmine.createSpyObj('TodoService', ['add']);
+    // TodoServiceStub.add.and.returnValue(null);
+      component = new TodoListExerciseComponent(todoService as TodoService);
     TestBed.configureTestingModule({
       declarations: [ TodoListExerciseComponent ],
-      providers: [{ provide: TodoService, useValue: TodoServiceStub }]
+      providers: [{ provide: TodoService, useValue: todoService }]
     })
     .compileComponents();
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TodoListExerciseComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

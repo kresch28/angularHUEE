@@ -49,7 +49,7 @@ hasError: boolean = false;
   ngOnInit(): void {
     this.isLoading = true;
     this.usersService.allUsers$.subscribe(members => {
-      this.members = members;
+      // this.members = members;
     }, error => {
       this.handleError(error);
     });

@@ -20,18 +20,9 @@ describe('OrganigramComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [ OrganigramComponent ],
-      providers: [
-        { provide: AngularFirestore, useValue: firestore },
-      ],
     })
     .compileComponents();
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(OrganigramComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

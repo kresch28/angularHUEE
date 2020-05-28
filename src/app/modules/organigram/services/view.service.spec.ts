@@ -1,38 +1,30 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ViewService } from './view.service';
-import { AuthorisationService } from './authorisation.service';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import { provideRoutes, Routes, RouterModule } from '@angular/router';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
+import {AuthenticationService} from "../../../services/authentication.service";
+import {UserService} from "./user.service";
 
 describe('ViewService', () => {
   let viewService: ViewService;
-  let service: AuthorisationService;
   let firestore: jasmine.SpyObj<AngularFirestore>;
+  let authService: jasmine.SpyObj<AuthenticationService>
   let router: jasmine.SpyObj<Router>;
-
-  beforeEach(() => {
-    firestore = jasmine.createSpyObj('firestore', ['collection']);
-    // firestore = jasmine.createSpyObj('firestore', ['valueChanges']);
-    service = new AuthorisationService(router, firestore as AngularFirestore);
-
-    TestBed.configureTestingModule({
-      imports: [RouterModule, RouterTestingModule],
-      providers: [
-        { provide: Router, useValue: router },
-      ],
-    });
-    service = TestBed.inject(AuthorisationService);
-  });
+  let usersService: jasmine.SpyObj<UserService>;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
-        service = TestBed.inject(ViewService);
+        firestore = jasmine.createSpyObj('firestore', ['collection']);
+        viewService = new ViewService(firestore as AngularFirestore, authService as AuthenticationService, usersService as UserService)
+
+        TestBed.configureTestingModule({
+            declarations: [ViewService]
+        });
     });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(viewService).toBeTruthy();
   });
 });

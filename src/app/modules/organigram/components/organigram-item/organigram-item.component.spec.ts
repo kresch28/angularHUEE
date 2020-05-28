@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrganigramItemComponent } from './organigram-item.component';
-import { NodesListService} from '../services/nodes-list.service';
+import { NodesListService} from '../../../../components/welcome/organigram/services/nodes-list.service';
 
 describe('OrganigramItemComponent', () => {
   let component: OrganigramItemComponent;

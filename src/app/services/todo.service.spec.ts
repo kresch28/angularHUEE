@@ -11,6 +11,9 @@ describe('TodoService', () => {
         firestore = jasmine.createSpyObj('firestore', ['collection']);
         // firestore = jasmine.createSpyObj('firestore', ['valueChanges']);
         service = new TodoService(firestore as AngularFirestore);
+        TestBed.configureTestingModule({
+            declarations: [TodoService]
+        });
     });
 
     /*it('should be created', () => {

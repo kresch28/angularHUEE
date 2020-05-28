@@ -3,7 +3,7 @@ import {Observable, of, Subject} from 'rxjs';
 import * as firebase from "firebase";
 import {User} from "firebase";
 import {Router} from '@angular/router';
-import {OrganigramUserModel} from '../components/organigram/organigram-item/organigram-item.component';
+import {OrganigramUserModel} from '../modules/organigram/components/models';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 
 @Injectable({

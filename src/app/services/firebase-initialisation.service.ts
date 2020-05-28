@@ -8,6 +8,8 @@ import * as firebase from "firebase";
 export class FirebaseInitialisationService {
 
 	constructor() {
-		firebase.initializeApp(environment.firebase);
+		if (!firebase.apps.length) {
+			firebase.initializeApp(environment.firebase);
+		}
 	}
 }

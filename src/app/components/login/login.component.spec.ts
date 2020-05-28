@@ -24,18 +24,11 @@ describe('LoginComponent', () => {
             declarations: [LoginComponent],
 		providers: [
 			{ provide: Router, useValue: router },
-			{ provide: AngularFirestore, useValue: firestore },
             { provide: AuthorisationService, useValue: service}
 		],
     })
     .compileComponents();
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

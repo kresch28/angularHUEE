@@ -4,11 +4,10 @@ import {AboutComponent} from './components/about/about.component';
 import {WelcomeComponent} from './components/welcome/welcome.component';
 import {ProfileComponent} from './components/user/profile/profile.component';
 import {LoginComponent} from "./components/login/login.component";
-import {LogoutComponent} from "./components/logout/logout.component";
 import {LoggedInGuard} from "ngx-auth-firebaseui";
 import {ErrorPageComponent} from "./components/error-page/error-page.component";
-import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './modules/exercises/components/exercise-register-form/register/register.component';
+import {LogoutComponent} from "./components/logout/logout.component";
 
 
 const routes: Routes = [{

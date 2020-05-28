@@ -8,6 +8,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Router} from '@angular/router';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AuthorisationService} from '../../../../../services/authorisation.service';
+import { AuthenticationService} from '../../../../../services/authentication.service';
 
 describe('RegisterComponent', () => {
 	let component: RegisterComponent;
@@ -15,14 +16,14 @@ describe('RegisterComponent', () => {
 	let formBuilder: jasmine.SpyObj<FormBuilder>;
 	let activatedRoute: jasmine.SpyObj<ActivatedRoute>;
 	let router: jasmine.SpyObj<Router>;
-	let authService: jasmine.SpyObj<AuthorisationService>;
+	let authService: jasmine.SpyObj<AuthenticationService>;
 	let firestore: jasmine.SpyObj<AngularFirestore>;
 
 	beforeEach(async(() => {
 
 		firestore = jasmine.createSpyObj('firestore', ['collection']);
 		// firestore = jasmine.createSpyObj('firestore', ['valueChanges']);
-		component = new RegisterComponent(formBuilder as FormBuilder, activatedRoute as ActivatedRoute, authService as AuthorisationService);
+		component = new RegisterComponent(formBuilder as FormBuilder, activatedRoute as ActivatedRoute, authService as AuthenticationService);
 
 		TestBed.configureTestingModule({
 			declarations: [RegisterComponent],
@@ -37,12 +38,6 @@ describe('RegisterComponent', () => {
 		})
 			.compileComponents();
 	}));
-
-	beforeEach(() => {
-		fixture = TestBed.createComponent(RegisterComponent);
-		component = fixture.componentInstance;
-		fixture.detectChanges();
-	});
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
