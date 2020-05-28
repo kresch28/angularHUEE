@@ -7,6 +7,8 @@ import {LoginComponent} from "./components/login/login.component";
 import {LogoutComponent} from "./components/logout/logout.component";
 import {LoggedInGuard} from "ngx-auth-firebaseui";
 import {ErrorPageComponent} from "./components/error-page/error-page.component";
+import {LoginComponent} from './components/login/login.component';
+import {RegisterComponent} from './modules/exercises/components/exercise-register-form/register/register.component';
 
 
 const routes: Routes = [{

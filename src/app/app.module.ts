@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
+import {RouterModule} from "@angular/router";
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {SearchService} from './services/search.service';
@@ -12,6 +13,7 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {ProfileComponent} from './components/user/profile/profile.component';
 import {AuthenticationService} from './services/authentication.service';
 import {AngularFireAuthModule} from "@angular/fire/auth";
@@ -53,6 +55,7 @@ import {OrganigramModule} from "./modules/organigram/organigram.module";
 		BrowserModule,
 		AngularFireModule,
 		AngularFirestoreModule,
+		AngularFireDatabaseModule,
 		AngularFireAuthModule,
 		NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'angularHUEE_factory', firebaseUiAuthConfig),
 		HttpClientModule,
