@@ -8,3 +8,6 @@ Project Team managing tool:
 additional features
 - you can split a specific amount of members in groups
 - you can display the members on a timeline accoring to their birthday dates 
+
+Page on Netlify: 
+https://huee-angular.netlify.app
