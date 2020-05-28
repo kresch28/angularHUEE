@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CdkDragEnd, CdkDragMove} from "@angular/cdk/drag-drop";
+import {CdkDragEnd} from "@angular/cdk/drag-drop";
 import {OrganigramItemMovedEvent, OrganigramUserModel, OrganigramViewPosition, OrganigramViewUserInformation} from "../models";
 import {UserService} from "../../services/user.service";
 import {LoadingAndErrorHandling} from "../../../../LoadingAndErrorHandling";
@@ -36,14 +36,14 @@ export class OrganigramItemComponent extends LoadingAndErrorHandling implements 
 			this.position$
 				.pipe(throttleTime(1000)) // only let new position values emit an event every second at most
 				.subscribe(next => {
-					this.moved.emit({ senderUid: this.userInformation.uid, newPosition: next })
+					this.moved.emit({senderUid: this.userInformation.uid, newPosition: next})
 				});
 			this.lastPosition = this.userInformation.position;
 		}
 	}
-	
+
 	itemDropped(event: CdkDragEnd) {
-		this.lastPosition = { x: this.lastPosition.x + event.distance.x, y: this.lastPosition.y + event.distance.y };
+		this.lastPosition = {x: this.lastPosition.x + event.distance.x, y: this.lastPosition.y + event.distance.y};
 		this.position$.next(this.lastPosition);
 	}
 }

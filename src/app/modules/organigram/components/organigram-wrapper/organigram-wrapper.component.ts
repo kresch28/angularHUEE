@@ -5,6 +5,7 @@ import {OrganigramUserModel, OrganigramViewModel} from "../models";
 import {UserService} from "../../services/user.service";
 import {LoadingAndErrorHandling} from "../../../../LoadingAndErrorHandling";
 import {OrganigramViewUserInformation} from "../models";
+import {AuthenticationService} from "../../../../services/authentication.service";
 
 @Component({
 	selector: 'app-organigram-wrapper',
@@ -22,6 +23,8 @@ export class OrganigramWrapperComponent extends LoadingAndErrorHandling implemen
 		super();
 
 		this.currentView = null;
+		
+		this.allUsers = usersService.getViewInformationForAllUsers;
 	}
 
 	ngOnInit(): void {
@@ -37,7 +40,7 @@ export class OrganigramWrapperComponent extends LoadingAndErrorHandling implemen
 				if (existing && permission) {
 					this.hasError = false;
 					this.loading = false;
-
+					
 					this.currentView = this.viewService.getView(this.id);
 				}
 				else {
@@ -62,15 +65,15 @@ export class OrganigramWrapperComponent extends LoadingAndErrorHandling implemen
 
 	createNew() {
 		this.loading = true;
-
+		
 		this.viewService.createView()
 			.then(r => {
 				r.subscribe(next => {
 					this.currentView = next;
 					this.loading = false;
 					this.id = this.currentView.uid;
-
-
+					
+					
 				});
 			})
 			.catch(error => {

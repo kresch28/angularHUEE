@@ -20,10 +20,6 @@ export class AuthenticationService {
 			this.userSubject$.next(next);
 			this.user = next;
 			
-			if (!next)
-			{
-				this.userSubject$.error(new Error("No user is logged in!"));
-			}
 		}, error => {
 			this.userSubject$.error(error);
 			this.user = null;
@@ -37,6 +33,8 @@ export class AuthenticationService {
 	get isLoggedIn(): boolean {
 		return !!this.user;
 	}
+	
+	get isAnonymousUser(): boolean { return this.user.isAnonymous; }
 	
 	getUser(): User | null { return this.user; }
 

@@ -1,12 +1,13 @@
 <div *ngIf="!hasError">
-	<div class="container organigramm-user-card" cdkDrag cdkDragBoundary=".organigramm-bounds" 
-		[cdkDragFreeDragPosition]="userInformation.position" (cdkDragEnded)="itemDropped($event)">
+	<div class="container organigramm-user-card" cdkDrag cdkDragBoundary=".organigramm-bounds"
+		 [cdkDragFreeDragPosition]="userInformation.position" (cdkDragEnded)="itemDropped($event)">
 		<div class="row">
 			<div class="col-sm"></div>
 			<div class="col-sm">
 				<mdb-card class="align-items-center">
 					<!--Card image-->
-					<img class="organigramm-picture profile-picture mt-4" [src]="user.photoURL == null ? 'https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg' : user.photoURL" alt="Card image cap"/>
+					<img class="organigramm-picture profile-picture mt-4" [src]="user.photoURL == null ? 'https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg' : user.photoURL"
+						 alt="Card image cap"/>
 					<!--Card content-->
 					<mdb-card-body>
 						
