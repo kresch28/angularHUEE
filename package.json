@@ -5,7 +5,6 @@
 		"ng": "ng",
 		"start": "ng serve",
 		"build": "ng build",
-		"test": "jasmine",
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e"
@@ -46,6 +45,7 @@
 		"@angular/compiler-cli": "~9.1.1",
 		"@angular/language-service": "~9.1.1",
 		"@firebase/app": "^0.6.2",
+		"@netlify-builder/deploy": "^3.1.0",
 		"@types/jasmine": "~3.5.0",
 		"@types/jasminewd2": "~2.0.3",
 		"@types/node": "^12.11.1",

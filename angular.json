@@ -133,8 +133,12 @@
           }
         },
         "deploy": {
-          "builder": "@angular/fire:deploy",
-          "options": {}
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist/huee-angular",
+            "netlifyToken": "bdbf98a316d19c13e1c14fc1b1261b5bf52c806cc4b47e80e0d2059e4ec94417",
+            "siteId": "239e6702-d660-45cb-8650-b9e885b0626f"
+          }
         }
       }
     }
