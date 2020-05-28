@@ -10,31 +10,49 @@ import {UserService} from "./user.service";
 })
 export class ViewService {
 
-	private view: OrganigramViewModel = null;
-	private viewSubject$ = new Subject<OrganigramViewModel>();
-	public firestoreReference: AngularFirestoreCollection<OrganigramViewModel[]>;
+	private allViews: OrganigramViewModel[] = [];
+	private allViewsSubject$: Subject<OrganigramViewModel[]> = new Subject<OrganigramViewModel[]>();
+	public firestoreReference: AngularFirestoreCollection<OrganigramViewModel>;
+
+	private ownedViews: OrganigramViewModel[] = [];
+	private ownedViewsSubject$: Subject<OrganigramViewModel[]> = new Subject<OrganigramViewModel[]>();
+	private currentOwnerId: string = "";
 
 	constructor(private firestore: AngularFirestore, private authService: AuthenticationService, private usersService: UserService) {
-		this.firestoreReference = firestore.collection<OrganigramViewModel[]>('view');
-	}
-	
-	getView$(id: string): Observable<OrganigramViewModel>
-	{
-		if (!this.view || this.view.uid != id) {
-			this.firestoreReference.doc<OrganigramViewModel>(id).valueChanges()
-				.subscribe(value => {
-					this.view = value;
-					this.viewSubject$.next(this.view);
-				}, error => {
-					this.viewSubject$.error(error);
-				});
-		}
+		this.firestoreReference = firestore.collection<OrganigramViewModel>('view');
+		this.firestoreReference.valueChanges().subscribe(next => {
+			this.allViews = next;
+			this.allViewsSubject$.next(this.allViews);
+		});
 		
-		return this.viewSubject$.asObservable();
+		this.allViewsSubject$.subscribe(next => {
+			this.ownedViews = [];
+			next.forEach(view => {
+				if (view.ownerUid == this.currentOwnerId) {
+					this.ownedViews.push(view);
+				}
+			});
+
+			this.ownedViewsSubject$.next(this.ownedViews);
+		});
 	}
-	
-	async createView(): Promise<Observable<OrganigramViewModel>>
-	{
+
+	getView$(id: string): Observable<OrganigramViewModel> | null {
+		return of(this.getView(id));
+	}
+
+	getView(id: string): OrganigramViewModel | null {
+		let foundView = null;
+		this.allViews.forEach(view => {
+			if (view.uid == id) {
+				foundView = view;
+			}
+		});
+
+		return foundView;
+	}
+
+	async createView(): Promise<Observable<OrganigramViewModel>> {
 		const view: OrganigramViewModel = {
 			uid: this.firestore.createId(),
 			title: "New View",
@@ -42,39 +60,71 @@ export class ViewService {
 			createdAt: new Date(),
 			updatedAt: new Date(),
 			ownerUid: this.authService.getUser().uid,
-			usedUsersUid: this.usersService.allUsersUids
+			usedUsersInformation: this.usersService.getViewInformationForAllUsers
 		};
 
 		return new Promise((resolve, reject) => {
-			console.log(view);
 			this.firestoreReference.doc(view.uid).set(view)
-			.then(() => {
-				resolve(of(view));
-			}, error => {
-				reject(error);
+				.then(
+					() => resolve(of(view)),
+					error => reject(error));
+		})
+	}
+
+	async viewExists(uid: string): Promise<boolean> {
+		return new Promise<boolean>((resolve, reject) => {
+			this.firestoreReference.doc<OrganigramViewModel>(uid).get().subscribe(
+				next => resolve(next.exists),
+				error => reject(error));
+		});
+	}
+
+	async viewIsAllowedToSee(uid: string): Promise<boolean> {
+		if (!(await this.viewExists(uid))) {
+			return Promise.resolve(false);
+		}
+		
+		return new Promise<boolean>((resolve, reject) => {
+			const view: OrganigramViewModel = this.getView(uid);
+			
+			resolve(this.authService.getUser() != null && view != null && 
+				(view.visibility == OrganigramViewVisibility.Public ||
+				view.visibility == OrganigramViewVisibility.Unlisted ||
+				view.ownerUid == this.authService.getUser().uid));
+		});
+	}
+
+	getViewsOfOwner$(ownerUid: string): Observable<OrganigramViewModel[]> {
+		this.getViewsOfOwner(ownerUid);
+		return this.ownedViewsSubject$.asObservable();
+	}
+
+	getViewsOfOwner(ownerUid: string): OrganigramViewModel[] {
+		if (ownerUid != this.currentOwnerId) {
+			this.currentOwnerId = ownerUid;
+			
+			this.ownedViews = [];
+			this.allViews.forEach(view => {
+				if (view.ownerUid == ownerUid) {
+					this.ownedViews.push(view);
+				}
 			});
-		}) 
+			this.ownedViewsSubject$.next(this.ownedViews);
+		}
+
+		return this.ownedViews;
+	}
+
+	async deleteView(uid: string) {
+		return new Promise((resolve, reject) => {
+			this.firestoreReference.doc(uid).delete()
+				.then(() => resolve())
+				.catch((error) => reject(error));
+		});
 	}
 	
-	async viewExists(uid: string): Promise<boolean>
+	async updateView(view: OrganigramViewModel)
 	{
-		return new Promise<boolean>(((resolve, reject) => {
-			this.firestoreReference.doc<OrganigramViewModel>(uid).get().subscribe(next => {
-				resolve(next.exists);
-			}, error => {
-				reject(error);
-			});
-		}))
-	}
-
-	async viewIsAllowedToSee(uid: string): Promise<boolean>
-	{
-		if (!(await this.viewExists(uid))) { return false; }
-
-		this.firestoreReference.doc<OrganigramViewModel>(uid).ref.get().then(document => {
-			console.log(document);
-		})
-		
-		return false;
+		await this.firestoreReference.doc(view.uid).set(view);
 	}
 }

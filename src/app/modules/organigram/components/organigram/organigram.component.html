@@ -1,4 +1,14 @@
-<div class="organigramm-bounds" *ngIf="currentView != null">
-	<h2>{{ currentView.title }}</h2>
-	<app-organigram-item *ngFor="let user of currentView.usedUsersUid;" [userUid]="user"></app-organigram-item>
+<div class="organigram-container container" *ngIf="currentView != null">
+	<div class="organigram-header-container container" *ngIf="currentView != null">
+		<h2 class="organigram-header" (click)="startEditTitle()" *ngIf="!editingTitle">{{ currentView.title }}</h2>
+		<div *ngIf="editingTitle" class="organigram-header-edit">
+			<input type="text" (keydown.enter)="update()" [(ngModel)]="currentView.title"/>
+		</div>
+	</div>
+	<div class="organigramm-bounds">
+		<app-organigram-item
+			*ngFor="let user of currentView.usedUsersInformation;" [userInformation]="user"
+			(moved)="itemMoved($event)">
+		</app-organigram-item>
+	</div>
 </div>

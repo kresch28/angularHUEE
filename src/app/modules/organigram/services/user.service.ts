@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/firestore";
-import {OrganigramUserModel, OrganigramViewUserModel} from "../components/models";
+import {OrganigramUserModel, OrganigramViewUserInformation} from "../components/models";
 
 
 @Injectable({
@@ -12,26 +12,38 @@ export class UserService {
 	private usersSubject$ = new Subject<OrganigramUserModel[]>();
 	public firestoreReference: AngularFirestoreCollection<OrganigramUserModel>;
 
+	private singleUser: OrganigramUserModel = null;
+	private singleUserSubject$ = new Subject<OrganigramUserModel>();
+	private singleUserUid: string = "";
+
 	constructor(private firestore: AngularFirestore) {
 		this.firestoreReference = firestore.collection<OrganigramUserModel>('users');
 		this.firestoreReference.valueChanges()
 			.subscribe(value => {
-				this.users = value;
-				this.usersSubject$.next(this.users);
-			}, error => {
-				this.usersSubject$.error(error);
-			});
+					this.users = value;
+					this.usersSubject$.next(this.users);
+				},
+				error => this.usersSubject$.error(error));
+
+		this.usersSubject$.subscribe(next => {
+			this.singleUser = this.getByUidInternal(this.singleUserUid);
+			this.singleUserSubject$.next(this.singleUser);
+
+			if (this.singleUser == null) {
+				this.singleUserSubject$.error(new Error("Could not find user"));
+			}
+		});
 	}
 
 	get allUsers$() {
-		return (this.usersSubject$.hasError) ? this.usersSubject$.thrownError : this.usersSubject$.asObservable();
+		return this.usersSubject$.asObservable();
 	}
 
-	get allUsersAsOrganigramViewUser(): OrganigramViewUserModel[] {
-		let convertedUsers: OrganigramViewUserModel[] = [];
+	get getViewInformationForAllUsers(): OrganigramViewUserInformation[] {
+		let convertedUsers: OrganigramViewUserInformation[] = [];
 
 		this.users.forEach(user => {
-			convertedUsers = [...convertedUsers, this.userAsOrganigramViewUser(user)];
+			convertedUsers = [...convertedUsers, this.getViewInformationForUser(user)];
 		})
 
 		return convertedUsers;
@@ -45,26 +57,45 @@ export class UserService {
 		return uids;
 	}
 
-	userAsOrganigramViewUser(user: OrganigramUserModel): OrganigramViewUserModel {
+	getViewInformationForUser(user: OrganigramUserModel): OrganigramViewUserInformation {
 		if (user == null) {
 			return null;
 		}
 
-		return {...user, position: {x: 0, y: 0}, parentsUid: [], childrenUid: [], additionalFields: []};
+		return { uid: user.uid , position: {x: 0, y: 0}, parentsUid: [], childrenUid: [], additionalFields: []};
 	}
 
 	remove(uid: string) {
 		this.firestoreReference.doc(uid).delete();
 	}
 
+	getByUid$(uid: string): Observable<OrganigramUserModel> {
+		this.getByUid(uid);
+		return this.singleUserSubject$.asObservable();
+	}
+
 	getByUid(uid: string): OrganigramUserModel {
+		if (!!uid && this.singleUserUid != uid) {
+			this.singleUser = this.getByUidInternal(uid);
+			this.singleUserSubject$.next(this.singleUser);
+
+			if (this.singleUser == null) {
+				this.singleUserSubject$.error(new Error("Could not find user"));
+			}
+		}
+
+		return this.singleUser;
+	}
+
+	private getByUidInternal(uid: string): OrganigramUserModel {
+		let foundUser = null;
+
 		this.users.forEach(user => {
 			if (user.uid == uid) {
-				console.log("Found user: ", user);
-				return user;
+				foundUser = user;
 			}
 		});
 
-		return null;
+		return foundUser;
 	}
 }

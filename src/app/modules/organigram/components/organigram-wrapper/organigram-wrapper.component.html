@@ -10,5 +10,5 @@
 
 <div *ngIf="hasError" class="alert-danger alert">{{ error.message }}</div>
 <div *ngIf="id != '' && !hasError" class="d-flex">
-	<app-organigram [currentView]="currentView"></app-organigram>
+	<app-organigram id="organigram" [currentView]="currentView"></app-organigram>
 </div>

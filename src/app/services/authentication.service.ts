@@ -31,7 +31,7 @@ export class AuthenticationService {
 	}
 
 	get loggedInUser$(): Observable<User> {
-		return (this.userSubject$.hasError) ? this.userSubject$.thrownError : this.userSubject$.asObservable();
+		return this.userSubject$.asObservable();
 	}
 
 	get isLoggedIn(): boolean {
@@ -74,33 +74,4 @@ export class AuthenticationService {
 				this.router.navigate([forwardingRoute])
 			});
 	}
-
-	/*
-	async createMember(username: string): Promise<Observable<OrganigramModel>> {
-		const member: OrganigramModel = {
-			username: username,
-			role: this.role
-		};
-
-		return await this.firestoreReference.doc(member.username).set(member)
-			.then(() => {
-				return Promise.resolve<Observable<OrganigramModel>>(of(member));
-			}, (error) => {
-				return Promise.reject(error);
-			});
-
-		console.log(this.firestoreReference);
-	}
-
-	update(id: string, todo: TodoModel): Observable<TodoModel> {
-	  this.firestoreReference.doc(id).set(todo)
-		  .then((resolved) => {
-			// TODO: tell the user, that it was persisted successfully
-		  }, (error) => {
-			// TODO: tell the user, that something went wrong
-		  });
-  
-	  return of(this.todos.find(currentTodo => currentTodo.id === id));
-	}
-	*/
 }

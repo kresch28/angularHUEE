@@ -3,30 +3,26 @@ import {ActivatedRoute} from "@angular/router";
 import {ViewService} from "../../services/view.service";
 import {OrganigramUserModel, OrganigramViewModel} from "../models";
 import {UserService} from "../../services/user.service";
+import {LoadingAndErrorHandling} from "../../../../LoadingAndErrorHandling";
 
 @Component({
 	selector: 'app-organigram-wrapper',
 	templateUrl: './organigram-wrapper.component.html',
 	styleUrls: ['./organigram-wrapper.component.scss']
 })
-export class OrganigramWrapperComponent implements OnInit {
+export class OrganigramWrapperComponent extends LoadingAndErrorHandling implements OnInit {
 
 	id: string = "";
-	loading: boolean;
-	hasError: boolean;
-	error: Error;
 
 	currentView: OrganigramViewModel;
 	allUsers: OrganigramUserModel[];
 
 	constructor(private route: ActivatedRoute, private viewService: ViewService, private usersService: UserService) {
-		this.loading = false;
-		this.hasError = false;
-		this.error = null;
+		super();
 
 		this.currentView = null;
 		
-		this.allUsers = usersService.allUsersAsOrganigramViewUser;
+		this.allUsers = usersService.getViewInformationForAllUsers;
 	}
 
 	ngOnInit(): void {
@@ -42,6 +38,8 @@ export class OrganigramWrapperComponent implements OnInit {
 				if (existing && permission) {
 					this.hasError = false;
 					this.loading = false;
+					
+					this.currentView = this.viewService.getView(this.id);
 				}
 				else {
 					this.handleError(new Error("This organigram does not exist or you don't have permission to see it!"));
@@ -60,13 +58,7 @@ export class OrganigramWrapperComponent implements OnInit {
 	}
 
 	private async viewIsAllowedToSee(id: string): Promise<boolean> {
-		return this.viewService.viewIsAllowedToSee(id);
-	}
-
-	private handleError(error: Error) {
-		this.hasError = true;
-		this.error = error;
-		this.loading = false;
+		return await this.viewService.viewIsAllowedToSee(id);
 	}
 
 	createNew() {
@@ -80,7 +72,7 @@ export class OrganigramWrapperComponent implements OnInit {
 					this.id = this.currentView.uid;
 					
 					
-				})
+				});
 			})
 			.catch(error => {
 				this.handleError(error);

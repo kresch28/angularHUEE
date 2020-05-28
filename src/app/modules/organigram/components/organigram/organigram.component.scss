@@ -1,7 +1,21 @@
 
 .organigramm-bounds {
 	border: 1px solid black;
+	width: 100%;
+}
+
+.organigram-container {
 	width: 90%;
 	height: 100%;
 	margin: auto;
+}
+
+.organigram-header-container {
+	border: 1px solid #c8c8c8;
+	border-bottom: none;
+	margin-bottom: 0;
+}
+
+.organigram-header-edit {
+	font-size: 1.5em;
 }

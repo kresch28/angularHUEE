@@ -9,7 +9,7 @@ export enum OrganigramViewVisibility {
 export interface OrganigramViewModel {
 	uid: string,
 	title: string,
-	usedUsersUid: string[],
+	usedUsersInformation: OrganigramViewUserInformation[],
 	ownerUid: string,
 	visibility: OrganigramViewVisibility,
 	createdAt: Date,
@@ -25,9 +25,20 @@ export interface OrganigramUserModel {
 	providerId: string,
 }
 
-export interface OrganigramViewUserModel extends OrganigramUserModel {
-	position: { x: number, y: number },
+export interface OrganigramViewUserInformation {
+	uid: string,
+	position: OrganigramViewPosition,
 	parentsUid: string[],
 	childrenUid: string[],
 	additionalFields: KeyValue<string, string>[]
+}
+
+export interface OrganigramViewPosition {
+	x: number, 
+	y: number
+}
+
+export interface OrganigramItemMovedEvent {
+	senderUid: string,
+	newPosition: OrganigramViewPosition
 }

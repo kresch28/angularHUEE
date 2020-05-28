@@ -1,5 +1,6 @@
-<div *ngIf="user != null">
-	<div class="container organigramm-user-card" cdkDrag cdkDragBoundary=".organigramm-bounds" (cdkDragMoved)="itemMoved($event)">
+<div *ngIf="!hasError">
+	<div class="container organigramm-user-card" cdkDrag cdkDragBoundary=".organigramm-bounds" 
+		[cdkDragFreeDragPosition]="userInformation.position" (cdkDragEnded)="itemDropped($event)">
 		<div class="row">
 			<div class="col-sm"></div>
 			<div class="col-sm">
@@ -11,9 +12,10 @@
 						
 						<!--Title-->
 						<mdb-card-title>
-							<h3>{{ user.displayName}}</h3>
+							<h3>{{ user.displayName }}</h3>
+							<h3>{{ user.uid }}</h3>
 						</mdb-card-title>
-						<div *ngFor="let field of user.additionalFields">
+						<div *ngFor="let field of userInformation.additionalFields">
 							{{ field.key }}: {{ field.value }}
 						</div>
 					</mdb-card-body>
@@ -23,6 +25,6 @@
 		</div>
 	</div>
 </div>
-<div *ngIf="user == null" class="alert alert-danger">
-	Could not load user
+<div *ngIf="hasError" class="alert alert-danger">
+	{{ error }}
 </div>

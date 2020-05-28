@@ -8,6 +8,7 @@ import {OrganigramRoutingModule} from "./organigram-routing.module";
 import {MDBBootstrapModule} from "angular-bootstrap-md";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ExercisesModule} from "../exercises/exercises.module";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -17,13 +18,14 @@ import {ExercisesModule} from "../exercises/exercises.module";
 		OrganigramLatestComponent,
 		OrganigramWrapperComponent
 	],
-	imports: [
-		CommonModule,
-		OrganigramRoutingModule,
-		MDBBootstrapModule,
-		DragDropModule,
-		ExercisesModule
-	],
+    imports: [
+        CommonModule,
+        OrganigramRoutingModule,
+        MDBBootstrapModule,
+        DragDropModule,
+        ExercisesModule,
+        FormsModule
+    ],
 	exports: [
 		OrganigramRoutingModule,
 		OrganigramLatestComponent

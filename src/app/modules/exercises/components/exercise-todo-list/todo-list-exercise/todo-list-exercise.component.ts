@@ -1,37 +1,34 @@
 import {Component, OnInit} from '@angular/core';
 import {TodoModel} from "../todo-list/todo-list.component";
 import {TodoService} from "../../../../../services/todo.service";
+import {LoadingAndErrorHandling} from "../../../../../LoadingAndErrorHandling";
 
 @Component({
 	selector: 'app-todo-list-exercise',
 	templateUrl: './todo-list-exercise.component.html',
 	styleUrls: ['./todo-list-exercise.component.scss']
 })
-export class TodoListExerciseComponent implements OnInit {
+export class TodoListExerciseComponent extends LoadingAndErrorHandling implements OnInit {
 	items: TodoModel[];
-	error: any;
-	hasError: boolean = false;
-	isLoading: boolean = false;
 
 	constructor(public todoService: TodoService) {
+		super();
 	}
 
 	ngOnInit(): void {
-		this.isLoading = true;
-		
+		this.loading = true;
+
 		this.items = this.todoService.getTodos();
 
-		this.todoService.todos$.subscribe(todos => {
-			this.items = todos;
-		}, error => {
-			this.handleError(error);
-		});
-		
-		this.isLoading = false;
+		this.todoService.todos$.subscribe(
+			todos => this.items = todos,
+			error => this.handleError(error));
+
+		this.loading = false;
 	}
 
 	handleTodoClick(todo: TodoModel) {
-		this.isLoading = true;
+		this.loading = true;
 
 		const todoCopy: TodoModel = {
 			...todo,
@@ -39,46 +36,28 @@ export class TodoListExerciseComponent implements OnInit {
 		};
 
 		this.todoService.update(todoCopy)
-			.then(todo => {
-				todo.subscribe();
-			})
-			.catch(error => {
-				this.error = error;
-			});
-		
-		this.isLoading = false;
+			.then(todo => todo.subscribe())
+			.catch(error => this.handleError(error));
+
+		this.loading = false;
 	}
 
 	handleNewTodo(title: string) {
-		this.isLoading = true;
+		this.loading = true;
 
 		this.todoService.create(title)
-			.then(todo => {
-				todo.subscribe();
-			})
-			.catch(error => {
-				this.error = error;
-			});
-		
-		this.isLoading = false;
+			.then(todo => todo.subscribe())
+			.catch(error => this.handleError(error));
+
+		this.loading = false;
 	}
 
 	handleItemToRemove(todo: TodoModel) {
-		this.isLoading = true;
+		this.loading = true;
 		
-		this.todoService.remove(todo.id).then()
-			.catch(error => {
-				this.error = error;
-			});
+		this.todoService.remove(todo.id)
+			.catch(error => this.handleError(error));
 
-		this.isLoading = false;
-	}
-	
-	private handleError(error):void
-	{
-		this.error = error;
-		this.hasError = true;
-		
-		// TODO: add a time, after the error alert disappears
+		this.loading = false;
 	}
 }

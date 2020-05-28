@@ -15,25 +15,21 @@ export class TodoService {
 		this.firestoreReference = firestore.collection<TodoModel>('todos');
 		this.firestoreReference.valueChanges()
 			.subscribe(value => {
-				this.todos = value;
+					this.todos = value;
 
-				this.todosSubject$.next(this.todos.sort((a, b) => {
-					return a.sortNumber - b.sortNumber;
-				}));
-				this.todos.forEach((todo, index) => {
-					todo.sortNumber = index;
-				})
-
-			}, error => {
-				this.todosSubject$.error(error);
-			});
+					this.todosSubject$.next(this.todos.sort((a, b) => a.sortNumber - b.sortNumber));
+					this.todos.forEach((todo, index) => todo.sortNumber = index);
+				},
+				error => this.todosSubject$.error(error));
 	}
 
 	get todos$(): Observable<TodoModel[]> {
-		return (this.todosSubject$.hasError) ? this.todosSubject$.thrownError : this.todosSubject$.asObservable();
+		return this.todosSubject$.hasError ? this.todosSubject$.thrownError : this.todosSubject$.asObservable();
 	}
-	
-	getTodos(): TodoModel[] { return this.todos; }
+
+	getTodos(): TodoModel[] {
+		return this.todos;
+	}
 
 	async create(title: string): Promise<Observable<TodoModel>> {
 		const todo: TodoModel = {

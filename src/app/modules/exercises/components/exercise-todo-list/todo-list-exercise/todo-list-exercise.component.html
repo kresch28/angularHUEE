@@ -1,6 +1,6 @@
 <app-todo-form (submittedText)="handleNewTodo($event)"></app-todo-form>
 
-<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>
 
 <div *ngIf="hasError" class="alert alert-danger">
 	Something went wrong :(

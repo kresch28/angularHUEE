@@ -1,5 +1,12 @@
+<div class="alert-danger alert" *ngIf="hasError">{{ error.message }}</div>
 
-TODO: Get all views created by the logged in user and show them here (or maybe the last 10 or sth like that)
-<ul class="list-group">
-	<li class="list-group-item"><a routerLink="/organigram/1">first</a></li>
+<div class="alert alert-primary">{{ shownViews.length > 0 || loading ? 'Your latest organigrams' : 'It seems like you haven\'t created any organigram yet. You can start by clicking create new down below.'  }}</div>
+<ul class="list-group" *ngIf="!hasError">
+	<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+	<li class="list-group-item"><a routerLink="/organigram/1">View with invalid ID</a></li>
+	
+	<li class="list-group-item d-flex" *ngFor="let view of shownViews" style="justify-content: space-between">
+		<a routerLink="/organigram/{{ view.uid }}">{{ view.title }}</a>
+		<span class="btn" (click)="deleteView(view.uid)">❌</span>
+	</li>
 </ul>
