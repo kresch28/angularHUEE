@@ -1,13 +1,7 @@
 <div class="container draggableListContainer">
 	<h3>open ToDos</h3>
-	<div
-		cdkDropList
-		#todoList="cdkDropList"
-		[cdkDropListData]="items"
-		class="example-list draggableList"
-		(cdkDropListDropped)="drop($event)">
-		
-		<app-todo-list-item cdkDrag
+	<div cdkDropList class="draggableList" (cdkDropListDropped)="drop($event)">
+		<app-todo-list-item cdkDrag class="draggable"
 			*ngFor="let todo of items; trackBy: trackByFunction" [todo]="todo"
 			(itemClicked)="onItemClicked(todo)"
 			(itemToRemove)="onItemToRemove(todo)">

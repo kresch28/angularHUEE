@@ -1,0 +1,14 @@
+<h2>View and edit your organigrams</h2>
+
+<app-organigram-latest></app-organigram-latest>
+
+<hr>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+
+<div class="btn btn-outline-secondary m-1" (click)="createNew()">Create new</div>
+
+<div *ngIf="hasError" class="alert-danger alert">{{ error.message }}</div>
+<div *ngIf="id != '' && !hasError" class="d-flex">
+	<app-organigram [currentView]="currentView"></app-organigram>
+</div>

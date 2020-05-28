@@ -5,8 +5,8 @@
 		"ng": "ng",
 		"start": "ng serve",
 		"build": "ng build",
-		"test": "ng test",
 		"test": "jasmine",
+		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e"
 	},
@@ -74,7 +74,7 @@
 		"@angular/flex-layout": "^9.0.0-beta.29",
 		"@angular/forms": "^9.x",
 		"@angular/material": "^9.x",
-		"@angular/fire": "5.4.x",
+		"@angular/fire": "^5.4.x",
 		"firebase": "^7.14.4"
 	}
 }

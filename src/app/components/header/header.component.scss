@@ -1,5 +1,21 @@
 
 .header {
-	z-index: 1;
 	background-color: hsl(0, 0, 96);
+	justify-content: space-between;
+	
+	#mobile-navigation-container {
+		display: none;
+	}
+}
+
+@media (max-width: 992px) {
+	.header {
+		#navigation {
+			display: none;
+		}
+		
+		#mobile-navigation-container {
+			display: block;
+		}
+	}
 }

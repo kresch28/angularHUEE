@@ -1,0 +1,4 @@
+<div class="organigramm-bounds" *ngIf="currentView != null">
+	<h2>{{ currentView.title }}</h2>
+	<app-organigram-item *ngFor="let user of currentView.usedUsersUid;" [userUid]="user"></app-organigram-item>
+</div>

@@ -12,7 +12,7 @@ import {TodoFormComponent} from "./components/exercise-todo-list/todo-form/todo-
 import {TodoListItemComponent} from "./components/exercise-todo-list/todo-list-item/todo-list-item.component";
 import {CollapseModule} from "../collapse/collapse.module";
 import {RegisterComponent} from "./components/exercise-register-form/register/register.component";
-import {DragDropModule} from "@angular/cdk/drag-drop";
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -39,7 +39,8 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 		DragDropModule,
 	],
 	exports: [
-		ExercisesRoutingModule
+		ExercisesRoutingModule,
+		LoadingSpinnerComponent
 	]
 })
 export class ExercisesModule {
