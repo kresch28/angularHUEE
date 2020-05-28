@@ -19,7 +19,7 @@ export class OrganigramWrapperComponent extends LoadingAndErrorHandling implemen
 	currentView: OrganigramViewModel;
 	allUsers: OrganigramViewUserInformation[];
 
-	constructor(private route: ActivatedRoute, private viewService: ViewService, private usersService: UserService, private authService: AuthenticationService) {
+	constructor(private route: ActivatedRoute, private viewService: ViewService, private usersService: UserService, public authService: AuthenticationService) {
 		super();
 
 		this.currentView = null;
