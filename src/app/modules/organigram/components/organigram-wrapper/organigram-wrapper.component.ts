@@ -80,4 +80,17 @@ export class OrganigramWrapperComponent extends LoadingAndErrorHandling implemen
 				this.handleError(error);
 			});
 	}
+	
+	deleteView(uid: string)
+	{
+		if (uid == this.currentView.uid) {
+			this.currentView = null;
+		}
+		
+		this.loading = true;
+		this.viewService.deleteView(uid)
+			.catch(error => this.handleError(error));
+		
+		this.loading = false;
+	}
 }

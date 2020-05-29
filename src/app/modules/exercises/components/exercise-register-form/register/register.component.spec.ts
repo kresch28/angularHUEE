@@ -2,13 +2,10 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {RegisterComponent} from './register.component';
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FormGroup, FormBuilder, Validator} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {Router} from '@angular/router';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {AuthorisationService} from '../../../../../services/authorisation.service';
-import { AuthenticationService} from '../../../../../services/authentication.service';
+import {AuthenticationService} from '../../../../../services/authentication.service';
 
 describe('RegisterComponent', () => {
 	let component: RegisterComponent;

@@ -2,27 +2,21 @@
 	<div *ngIf="user.displayName" class="container organigramm-user-card" cdkDrag cdkDragBoundary=".organigramm-bounds"
 		 [cdkDragFreeDragPosition]="userInformation.position" (cdkDragEnded)="itemDropped($event)">
 		<div class="row">
-			<div class="col-sm"></div>
-			<div class="col-sm">
-				<mdb-card class="align-items-center">
-					<!--Card image-->
-					<img class="organigramm-picture profile-picture mt-4" [src]="user.photoURL == null ? 'https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg' : user.photoURL"
-						 alt="Card image cap"/>
-					<!--Card content-->
-					<mdb-card-body>
-						
-						<!--Title-->
-						<mdb-card-title>
-							<h3>{{ user.displayName }}</h3>
-							<h3>{{ user.uid }}</h3>
-						</mdb-card-title>
-						<div *ngFor="let field of userInformation.additionalFields">
-							{{ field.key }}: {{ field.value }}
-						</div>
-					</mdb-card-body>
-				</mdb-card>
-			</div>
-			<div class="col-sm"></div>
+			<mdb-card class="align-items-center">
+				<!--Card image-->
+				<mdb-card-header>
+					<mdb-card-title>{{ user.displayName}}</mdb-card-title>
+				</mdb-card-header>
+				<!--Card content-->
+				<mdb-card-body>
+					<mdb-card-img class="organigramm-picture profile-picture mt-4" [src]="user.photoURL == null ? 'https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg' : user.photoURL"
+								  alt="Card image cap"></mdb-card-img>
+					
+					<div *ngFor="let field of userInformation.additionalFields">
+						{{ field.key }}: {{ field.value }}
+					</div>
+				</mdb-card-body>
+			</mdb-card>
 		</div>
 	</div>
 </div>

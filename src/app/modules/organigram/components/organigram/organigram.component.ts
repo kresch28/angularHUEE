@@ -49,6 +49,7 @@ export class OrganigramComponent implements OnInit {
 	update() {
 		this.stopEditTitle();
 
+		this.currentView.updatedAt = new Date();
 		this.viewService.updateView(this.currentView);
 		this.titleBefore = this.currentView.title;
 	}

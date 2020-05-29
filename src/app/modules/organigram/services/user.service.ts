@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Observable, Subject} from "rxjs";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/firestore";
 import {OrganigramUserModel, OrganigramViewUserInformation} from "../components/models";
+import {AuthProvider} from "ngx-auth-firebaseui";
 
 
 @Injectable({
@@ -43,8 +44,11 @@ export class UserService {
 		let convertedUsers: OrganigramViewUserInformation[] = [];
 
 		this.users.forEach(user => {
-			convertedUsers = [...convertedUsers, this.getViewInformationForUser(user)];
-		})
+			// get all users, but filter out anonymous users (they get created by clicking continue as guest in registration)
+			if (user.providerId != null && user.providerId != "") {
+				convertedUsers = [...convertedUsers, this.getViewInformationForUser(user)];
+			}
+		});
 
 		return convertedUsers;
 	}

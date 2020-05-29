@@ -1,4 +1,5 @@
 
+<!-- maybe rework this some time and make an own profile page
 <div class="container">
 	<h1>Your profile</h1>
 	
@@ -9,17 +10,17 @@
         <div class="col-sm"></div>
         <div class="col-sm">
             <mdb-card class="align-items-center">
-                <!--Card image-->
+            
                 <img class="profile-picture mt-4" [src]="user.photoURL == null ? 'https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg' : user.photoURL" alt="Card image cap"/>
-                <!--Card content-->
+                
                 <mdb-card-body>
 
-                    <!--Title-->
+
                     <mdb-card-title>
                         <h4>{{ user.displayName }}</h4>
                     </mdb-card-title>
 
-                    <!--Text-->
+
                     <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
                         content.
                     </mdb-card-text>
@@ -29,5 +30,6 @@
         <div class="col-sm"></div>
     </div>
 </div>
+-->
 
 <ngx-auth-firebaseui-user></ngx-auth-firebaseui-user>

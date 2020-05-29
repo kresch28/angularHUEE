@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ViewService} from "../../services/view.service";
 import {AuthenticationService} from "../../../../services/authentication.service";
 import {OrganigramViewModel} from "../models";
@@ -16,6 +16,8 @@ export class OrganigramLatestComponent extends LoadingAndErrorHandling implement
 	private numberOfViewsShown: number = 5;
 	shownViews: OrganigramViewModel[] = [];
 
+	@Output() deleteItem: EventEmitter<string> = new EventEmitter<string>();
+
 
 	constructor(private viewService: ViewService, public authService: AuthenticationService) {
 		super();
@@ -27,7 +29,7 @@ export class OrganigramLatestComponent extends LoadingAndErrorHandling implement
 		if (this.authService.isLoggedIn) {
 			this.allOwnedViews = this.viewService.getViewsOfOwner(this.authService.getUser().uid);
 			this.updateShownViews();
-			
+
 			this.getViews(this.authService.getUser());
 		}
 
@@ -59,9 +61,6 @@ export class OrganigramLatestComponent extends LoadingAndErrorHandling implement
 	}
 
 	deleteView(uid: string) {
-		this.loading = true;
-		this.viewService.deleteView(uid)
-			.then(() => this.updateShownViews())
-			.catch(error => this.handleError(error));
+		this.deleteItem.emit(uid);
 	}
 }
