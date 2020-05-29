@@ -19,6 +19,7 @@ export class OrganigramItemComponent extends LoadingAndErrorHandling implements 
 	@Input() userInformation: OrganigramViewUserInformation;
 
 	@Output() moved: EventEmitter<OrganigramItemMovedEvent> = new EventEmitter<OrganigramItemMovedEvent>();
+	@Output() dropped: EventEmitter<CdkDragEnd> = new EventEmitter<CdkDragEnd>();
 
 	constructor(private usersService: UserService) {
 		super();
@@ -45,5 +46,7 @@ export class OrganigramItemComponent extends LoadingAndErrorHandling implements 
 	itemDropped(event: CdkDragEnd) {
 		this.lastPosition = {x: this.lastPosition.x + event.distance.x, y: this.lastPosition.y + event.distance.y};
 		this.position$.next(this.lastPosition);
+		
+		this.dropped.emit(event);
 	}
 }

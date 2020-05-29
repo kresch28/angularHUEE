@@ -11,6 +11,8 @@
 		</mat-radio-group>
 	</div>
 	
+	
+	<div class="btn btn-outline-primary" (click)="toggleDrawing()">{{ drawingLines ? 'Hide lines' : 'Show lines' }}</div>
 	<div class="organigram-header-container container" *ngIf="currentView != null">
 		<h2 class="organigram-header" (click)="startEditTitle()" *ngIf="!editingTitle">{{ currentView.title }}</h2>
 		<div *ngIf="editingTitle" class="organigram-header-edit d-flex">
@@ -23,11 +25,13 @@
 		</div>
 	</div>
 	
-	<div class="organigramm-bounds">
+	<div class="organigramm-bounds" id="organigram-bounds">
 		<div class="alert alert-warning" *ngIf="hasWarning">{{ warning }}</div>
 		<app-organigram-item
 			*ngFor="let user of currentView.usedUsersInformation;" [userInformation]="user"
-			(moved)="itemMoved($event)">
+			(moved)="itemMoved($event)" (dropped)="itemDropped($event)">
 		</app-organigram-item>
 	</div>
+	
+	<div id="linesContainer"></div>
 </div>
