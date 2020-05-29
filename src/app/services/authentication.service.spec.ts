@@ -6,6 +6,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FirebaseInitialisationService} from "./firebase-initialisation.service";
 import {AngularFireAuth} from "@angular/fire/auth";
+import {UserService} from "../modules/organigram/services/user.service";
 
 describe('LoginService', () => {
 	let service: AuthenticationService;
@@ -14,10 +15,11 @@ describe('LoginService', () => {
 	let initService: jasmine.SpyObj<FirebaseInitialisationService>;
 	let router: jasmine.SpyObj<Router>;
 	let angularFireAuth: jasmine.SpyObj<AngularFireAuth>;
+	let usersService: jasmine.SpyObj<UserService>
 
 	beforeEach(() => {
 		firestore = jasmine.createSpyObj('firestore', ['collection']);
-		service = new AuthenticationService(initService as FirebaseInitialisationService, router as Router, angularFireAuth as AngularFireAuth);
+		service = new AuthenticationService(initService as FirebaseInitialisationService, router as Router, angularFireAuth as AngularFireAuth, usersService as UserService);
 
 		TestBed.configureTestingModule({
 			declarations: [AuthenticationService],

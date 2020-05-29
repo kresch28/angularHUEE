@@ -25,7 +25,7 @@ describe('OrganigramLatestComponent', () => {
 	}));
 
 
-	it('should create', () => {
-		expect(component).toBeTruthy();
+	it('Organigram for logged in user should be loaded', () => {
+		expect(component.loading).toBeFalse();
 	});
 });
