@@ -5,6 +5,7 @@ import {User} from "firebase";
 import {Router} from "@angular/router";
 import {FirebaseInitialisationService} from "./firebase-initialisation.service";
 import {AngularFireAuth} from "@angular/fire/auth";
+import {UserService} from "../modules/organigram/services/user.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthenticationService {
 	userSubject$: Subject<User | null> = new Subject<User | null>();
 	private user: User | null;
 
-	constructor(private initService: FirebaseInitialisationService, private router: Router, public angularFireAuth: AngularFireAuth) {
+	constructor(private initService: FirebaseInitialisationService, private router: Router, public angularFireAuth: AngularFireAuth, private usersService: UserService) {
 		this.user = null;
 
 		angularFireAuth.authState.subscribe(next => {
@@ -60,16 +61,15 @@ export class AuthenticationService {
 	}
 
 	remove(uid: string) {
-		// this.usersService.remove(uid); <-- TODO: test, if that is necessary
+		this.usersService.remove(uid);
 		this.angularFireAuth.currentUser.then(value => {
-			value.delete();
+			value.delete()
+				.then(() => this.router.navigate(["/login"]));
 		});
 	}
 
 	logOut(forwardingRoute: string = "") {
 		this.angularFireAuth.signOut()
-			.then(r => {
-				this.router.navigate([forwardingRoute])
-			});
+			.then(() => this.router.navigate([forwardingRoute]));
 	}
 }

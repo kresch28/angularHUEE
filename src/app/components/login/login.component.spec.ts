@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import {AuthorisationService} from '../../services/authorisation.service';
 import {LoginComponent} from './login.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 
 describe('LoginComponent', () => {
@@ -12,12 +12,13 @@ describe('LoginComponent', () => {
 	let fixture: ComponentFixture<LoginComponent>;
 	let firestore: jasmine.SpyObj<AngularFirestore>;
 	let router: jasmine.SpyObj<Router>;
+	let activatedRoute: jasmine.SpyObj<ActivatedRoute>;
 
   beforeEach(async(() => {
 
 	  firestore = jasmine.createSpyObj('firestore', ['collection']);
 	  // firestore = jasmine.createSpyObj('firestore', ['valueChanges']);
-	  component = new LoginComponent(router as Router);
+	  component = new LoginComponent(router as Router, activatedRoute);
 
     TestBed.configureTestingModule({
             imports: [RouterTestingModule.withRoutes([])],

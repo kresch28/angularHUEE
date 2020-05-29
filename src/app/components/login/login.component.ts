@@ -17,18 +17,19 @@ export class LoginComponent {
 	constructor(private router: Router, private activatedRoute: ActivatedRoute) {
 		this.providers = [AuthProvider.ANONYMOUS, AuthProvider.EmailAndPassword, AuthProvider.Google];
 
-		activatedRoute.paramMap.subscribe(next => {
+		activatedRoute.queryParamMap.subscribe(next => {
 			if (next.has("redirectUrl")) {
-				this.redirectViaParam = next.get("redirectUrl"); // TODO: get this working
+				this.redirectViaParam = next.get("redirectUrl");
 			}
-		})
+		});
 	}
 
 	loggedInSuccessful(event) {
 		if (this.redirect == "" && this.redirectViaParam != "") {
 			this.router.navigate([this.redirectViaParam]);
 		}
-
-		this.router.navigate([this.redirect]);
+		else {
+			this.router.navigate([this.redirect]);
+		}
 	}
 }
