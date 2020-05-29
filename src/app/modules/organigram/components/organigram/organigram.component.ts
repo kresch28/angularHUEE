@@ -13,6 +13,8 @@ export class OrganigramComponent implements OnInit {
 	@Output() error: EventEmitter<Error> = new EventEmitter<Error>();
 
 	editingTitle: boolean = false;
+	private titleBefore: string;
+	
 	visibilities = { "Private": OrganigramViewVisibility.Private, "Unlisted": OrganigramViewVisibility.Unlisted, "Public": OrganigramViewVisibility.Public };
 
 	constructor(private authService: AuthenticationService, private viewService: ViewService) {
@@ -38,13 +40,19 @@ export class OrganigramComponent implements OnInit {
 		this.stopEditTitle();
 
 		this.viewService.updateView(this.currentView);
+		this.titleBefore = this.currentView.title;
 	}
 
-	stopEditTitle() {
+	stopEditTitle(discardChanges = false) {
 		this.editingTitle = false;
+		
+		if (discardChanges) {
+			this.currentView.title = this.titleBefore;
+		}
 	}
 
 	startEditTitle() {
+		this.titleBefore = this.currentView.title;
 		this.editingTitle = true;
 	}
 }

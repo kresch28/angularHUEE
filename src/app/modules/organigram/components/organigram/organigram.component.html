@@ -11,8 +11,13 @@
 	
 	<div class="organigram-header-container container" *ngIf="currentView != null">
 		<h2 class="organigram-header" (click)="startEditTitle()" *ngIf="!editingTitle">{{ currentView.title }}</h2>
-		<div *ngIf="editingTitle" class="organigram-header-edit">
+		<div *ngIf="editingTitle" class="organigram-header-edit d-flex">
 			<input type="text" (keydown.enter)="update()" [(ngModel)]="currentView.title"/>
+			
+			<div class="d-flex">
+				<div (click)="update()" class="btn btn-outline-primary">✅</div>
+				<div (click)="stopEditTitle(true)" class="btn btn-outline-primary">❌</div>
+			</div>
 		</div>
 	</div>
 	
