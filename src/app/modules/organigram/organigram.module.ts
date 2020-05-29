@@ -9,6 +9,7 @@ import {MDBBootstrapModule} from "angular-bootstrap-md";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ExercisesModule} from "../exercises/exercises.module";
 import {FormsModule} from "@angular/forms";
+import {MatRadioModule} from "@angular/material/radio";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {FormsModule} from "@angular/forms";
         MDBBootstrapModule,
         DragDropModule,
         ExercisesModule,
-        FormsModule
+        FormsModule,
+        MatRadioModule
     ],
 	exports: [
 		OrganigramRoutingModule,

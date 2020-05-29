@@ -1,14 +1,11 @@
-<div class="d-flex navbar navbar-light navbar-expand-lg fixed-top card-header header">
-	<a routerLink="/">
-		<h1 style="margin: 0;">some project titly thingy</h1>
-	</a>
+<mdb-navbar SideClass="d-flex navbar navbar-light navbar-expand-lg fixed-top card-header">
+	<mdb-navbar-brand>
+		<a routerLink="/">
+			<h1 style="margin: 0;">some project titly thingy</h1>
+		</a>
+	</mdb-navbar-brand>
 	
-	<app-navigation id="navigation"></app-navigation>
-	
-	<div id="mobile-navigation-container">
-		<div>Insert icon here</div>
-		<div *ngIf="false">
-			<app-navigation></app-navigation>
-		</div>
-	</div>
-</div>
+	<links>
+		<app-navigation id="navigation" class="ml-auto"></app-navigation>
+	</links>
+</mdb-navbar>

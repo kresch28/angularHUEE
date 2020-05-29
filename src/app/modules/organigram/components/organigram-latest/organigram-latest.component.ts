@@ -3,6 +3,7 @@ import {ViewService} from "../../services/view.service";
 import {AuthenticationService} from "../../../../services/authentication.service";
 import {OrganigramViewModel} from "../models";
 import {LoadingAndErrorHandling} from "../../../../LoadingAndErrorHandling";
+import {User} from "firebase";
 
 @Component({
 	selector: 'app-organigram-latest',
@@ -25,28 +26,29 @@ export class OrganigramLatestComponent extends LoadingAndErrorHandling implement
 
 		if (this.authService.isLoggedIn) {
 			this.allOwnedViews = this.viewService.getViewsOfOwner(this.authService.getUser().uid);
-			this.viewService.getViewsOfOwner$(this.authService.getUser().uid).subscribe(next => {
+			this.updateShownViews();
+			
+			this.getViews(this.authService.getUser());
+		}
+
+		this.authService.loggedInUser$.subscribe(
+			user => this.getViews(user),
+			error => this.handleError(error));
+	}
+
+	private getViews(user: User) {
+		if (user != null) {
+			this.viewService.getViewsOfOwner$(user.uid).subscribe(next => {
 					this.allOwnedViews = next;
 					this.updateShownViews();
 				},
 				error => this.handleError(error));
-			
+
 			this.loading = false;
 		}
-
-		this.authService.loggedInUser$.subscribe(user => {
-				if (user != null) {
-					this.viewService.getViewsOfOwner$(user.uid).subscribe(next => {
-							this.allOwnedViews = next;
-							this.updateShownViews();
-						},
-						error => this.handleError(error));
-				}
-				else {
-					this.handleError(new Error("There was a problem while loading your latest edited organigrams."))
-				}
-			},
-			error => this.handleError(error));
+		else {
+			this.handleError(new Error("There was a problem while loading your latest edited organigrams."))
+		}
 	}
 
 	updateShownViews() {

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {OrganigramItemMovedEvent, OrganigramViewModel} from "../models";
+import {OrganigramItemMovedEvent, OrganigramViewModel, OrganigramViewVisibility} from "../models";
 import {AuthenticationService} from "../../../../services/authentication.service";
 import {ViewService} from "../../services/view.service";
 
@@ -13,6 +13,7 @@ export class OrganigramComponent implements OnInit {
 	@Output() error: EventEmitter<Error> = new EventEmitter<Error>();
 
 	editingTitle: boolean = false;
+	visibilities = { "Private": OrganigramViewVisibility.Private, "Unlisted": OrganigramViewVisibility.Unlisted, "Public": OrganigramViewVisibility.Public };
 
 	constructor(private authService: AuthenticationService, private viewService: ViewService) {
 	}
