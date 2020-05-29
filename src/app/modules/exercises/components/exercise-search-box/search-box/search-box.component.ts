@@ -38,7 +38,8 @@ export class SearchBoxComponent implements OnInit {
 									return of([]);
 								})
 							);
-					} else {
+					}
+					else {
 						return of([] as SearchResult[]);
 					}
 				}),

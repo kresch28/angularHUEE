@@ -1,6 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {AuthenticationService} from '../../../../../services/authentication.service';

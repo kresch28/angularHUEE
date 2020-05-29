@@ -1,6 +1,7 @@
 <div class="alert-danger alert" *ngIf="hasError">{{ error.message }}</div>
 
-<div class="alert alert-primary">{{ shownViews.length > 0 || loading ? 'Some public organigrams' : 'It seems there haven\'t created any public organigram yet. You can be the first one to do so.'  }}</div>
+<div
+	class="alert alert-primary">{{ shownViews.length > 0 || loading ? 'Some public organigrams' : 'It seems there haven\'t created any public organigram yet. You can be the first one to do so.'  }}</div>
 <ul class="list-group" *ngIf="!hasError">
 	<app-loading-spinner *ngIf="loading"></app-loading-spinner>
 	<li class="list-group-item d-flex" *ngFor="let view of shownViews" style="justify-content: space-between">

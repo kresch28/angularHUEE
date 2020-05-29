@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {Observable, Subject} from "rxjs";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/firestore";
 import {OrganigramUserModel, OrganigramViewUserInformation} from "../components/models";
-import {AuthProvider} from "ngx-auth-firebaseui";
 
 
 @Injectable({
@@ -66,7 +65,7 @@ export class UserService {
 			return null;
 		}
 
-		return { uid: user.uid , position: {x: 0, y: 0}, parentsUid: [], childrenUid: [], additionalFields: []};
+		return {uid: user.uid, position: {x: 0, y: 0}, parentsUid: [], childrenUid: [], additionalFields: []};
 	}
 
 	remove(uid: string) {

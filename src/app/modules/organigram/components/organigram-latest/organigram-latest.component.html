@@ -1,10 +1,10 @@
 <div class="alert-danger alert" *ngIf="hasError">{{ error.message }}</div>
 
 <div class="alert alert-primary">
-	{{ shownViews.length > 0 || loading ? 
-	'Your latest organigrams' : 
-	'It seems like you haven\'t created any organigram yet.' + 
-	authService.isAnonymousUser ? 
+	{{ shownViews.length > 0 || loading ?
+	'Your latest organigrams' :
+	'It seems like you haven\'t created any organigram yet.' +
+	authService.isAnonymousUser ?
 		'Create an account to make your own organigram.' : 'You can start by clicking create new down below.' }}</div>
 <ul class="list-group" *ngIf="!hasError">
 	<app-loading-spinner *ngIf="loading"></app-loading-spinner>

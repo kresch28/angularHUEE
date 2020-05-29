@@ -34,7 +34,7 @@ export interface OrganigramViewUserInformation {
 }
 
 export interface OrganigramViewPosition {
-	x: number, 
+	x: number,
 	y: number
 }
 

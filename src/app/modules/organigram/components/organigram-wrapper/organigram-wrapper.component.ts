@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ViewService} from "../../services/view.service";
-import {OrganigramUserModel, OrganigramViewModel} from "../models";
+import {OrganigramViewModel, OrganigramViewUserInformation} from "../models";
 import {UserService} from "../../services/user.service";
 import {LoadingAndErrorHandling} from "../../../../LoadingAndErrorHandling";
-import {OrganigramViewUserInformation} from "../models";
 import {AuthenticationService} from "../../../../services/authentication.service";
 
 @Component({
@@ -23,7 +22,7 @@ export class OrganigramWrapperComponent extends LoadingAndErrorHandling implemen
 		super();
 
 		this.currentView = null;
-		
+
 		this.allUsers = usersService.getViewInformationForAllUsers;
 	}
 
@@ -40,7 +39,7 @@ export class OrganigramWrapperComponent extends LoadingAndErrorHandling implemen
 				if (existing && permission) {
 					this.hasError = false;
 					this.loading = false;
-					
+
 					this.currentView = this.viewService.getView(this.id);
 				}
 				else {
@@ -65,32 +64,31 @@ export class OrganigramWrapperComponent extends LoadingAndErrorHandling implemen
 
 	createNew() {
 		this.loading = true;
-		
+
 		this.viewService.createView()
 			.then(r => {
 				r.subscribe(next => {
 					this.currentView = next;
 					this.loading = false;
 					this.id = this.currentView.uid;
-					
-					
+
+
 				});
 			})
 			.catch(error => {
 				this.handleError(error);
 			});
 	}
-	
-	deleteView(uid: string)
-	{
+
+	deleteView(uid: string) {
 		if (uid == this.currentView.uid) {
 			this.currentView = null;
 		}
-		
+
 		this.loading = true;
 		this.viewService.deleteView(uid)
 			.catch(error => this.handleError(error));
-		
+
 		this.loading = false;
 	}
 }

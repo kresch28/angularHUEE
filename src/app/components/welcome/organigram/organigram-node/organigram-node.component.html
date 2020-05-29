@@ -1,27 +1,27 @@
 <h2>Organigramm Team IM531</h2>
 
 <div class="tree-pane"
-        (mousedown)="onmousedown()"
-        (mouseup)="onmouseup()"
-        (mousemove)="onmousemove($event)"
-        (mousewheel)="onmousewheel($event)">
-    <div class="tree-paning-container" [style.transform]="paneTransform">
-        <div *ngIf="nodes" class="tree-roots-elements">
-
-            <app-organigram-node-item
-                    [nodeId]="node.guid"
-                    class="tree-root tree-node"
-                    (mousedown)="preventMouse($event)"
-                    *ngFor="let node of nodes.roots"
-            ></app-organigram-node-item>
-
-            <app-organigram-node-item
-                    [nodeId]="nodeMaker"
-                    (click)="newNode()"
-                    (mousedown)="preventMouse($event)"
-                    class="tree-root tree-new-node tree-node"
-            ></app-organigram-node-item>
-
-        </div>
-    </div>
+	 (mousedown)="onmousedown()"
+	 (mouseup)="onmouseup()"
+	 (mousemove)="onmousemove($event)"
+	 (mousewheel)="onmousewheel($event)">
+	<div class="tree-paning-container" [style.transform]="paneTransform">
+		<div *ngIf="nodes" class="tree-roots-elements">
+			
+			<app-organigram-node-item
+				[nodeId]="node.guid"
+				class="tree-root tree-node"
+				(mousedown)="preventMouse($event)"
+				*ngFor="let node of nodes.roots"
+			></app-organigram-node-item>
+			
+			<app-organigram-node-item
+				[nodeId]="nodeMaker"
+				(click)="newNode()"
+				(mousedown)="preventMouse($event)"
+				class="tree-root tree-new-node tree-node"
+			></app-organigram-node-item>
+		
+		</div>
+	</div>
 </div>

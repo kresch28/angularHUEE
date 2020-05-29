@@ -20,7 +20,7 @@ export class AuthenticationService {
 		angularFireAuth.authState.subscribe(next => {
 			this.userSubject$.next(next);
 			this.user = next;
-			
+
 		}, error => {
 			this.userSubject$.error(error);
 			this.user = null;
@@ -34,10 +34,14 @@ export class AuthenticationService {
 	get isLoggedIn(): boolean {
 		return !!this.user;
 	}
-	
-	get isAnonymousUser(): boolean { return this.user.isAnonymous; }
-	
-	getUser(): User | null { return this.user; }
+
+	get isAnonymousUser(): boolean {
+		return this.user.isAnonymous;
+	}
+
+	getUser(): User | null {
+		return this.user;
+	}
 
 	createNewUser(email: string, password: string, username: string = ''): Promise<Observable<firebase.User>> | null {
 		return this.angularFireAuth.createUserWithEmailAndPassword(email, password)
@@ -45,7 +49,7 @@ export class AuthenticationService {
 				value.user.displayName = username;
 				value.user.sendEmailVerification();
 				this.router.navigate(['/profile']);
-				
+
 				this.user = value.user;
 				this.userSubject$.next(value.user);
 

@@ -12,7 +12,7 @@ describe('SearchBoxComponent', () => {
 		TestBed.configureTestingModule({
 			declarations: [SearchBoxComponent],
 			providers: [
-				{ provide: HttpClient, useValue: httpClient },
+				{provide: HttpClient, useValue: httpClient},
 			],
 		})
 			.compileComponents();

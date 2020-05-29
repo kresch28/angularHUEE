@@ -6,7 +6,6 @@ import {ProfileComponent} from './components/user/profile/profile.component';
 import {LoginComponent} from "./components/login/login.component";
 import {LoggedInGuard} from "ngx-auth-firebaseui";
 import {ErrorPageComponent} from "./components/error-page/error-page.component";
-import {RegisterComponent} from './modules/exercises/components/exercise-register-form/register/register.component';
 import {LogoutComponent} from "./components/logout/logout.component";
 
 
@@ -19,14 +18,14 @@ const routes: Routes = [{
 }, {
 	path: 'logout',
 	component: LogoutComponent,
-	canActivate: [ LoggedInGuard ]
+	canActivate: [LoggedInGuard]
 }, {
 	path: 'about',
 	component: AboutComponent,
 }, {
 	path: 'profile',
 	component: ProfileComponent,
-	canActivate: [ LoggedInGuard ]
+	canActivate: [LoggedInGuard]
 }, {
 	path: '**',
 	component: ErrorPageComponent

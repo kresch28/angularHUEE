@@ -1,59 +1,58 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OrganigramModel} from '../organigram-item/organigram-item.component';
 import {AuthorisationService} from '../../../../services/authorisation.service';
 
 @Component({
-  selector: 'app-organigram',
-  templateUrl: './organigram.component.html',
-  styleUrls: ['./organigram.component.scss']
+	selector: 'app-organigram',
+	templateUrl: './organigram.component.html',
+	styleUrls: ['./organigram.component.scss']
 })
-export class OrganigramComponent implements OnInit{
-members: OrganigramModel[];
-error: any;
-isLoading: boolean = false;
-hasError: boolean = false;
+export class OrganigramComponent implements OnInit {
+	members: OrganigramModel[];
+	error: any;
+	isLoading: boolean = false;
+	hasError: boolean = false;
 
-  constructor(public authService: AuthorisationService) {
-  }
+	constructor(public authService: AuthorisationService) {
+	}
 
-  ngOnInit(): void {
-    this.isLoading = true;
-    this.authService.members$.subscribe(members => {
-      this.members = members;
-    }, error => {
-      this.handleError(error);
-    });
-    console.log(this.members);
+	ngOnInit(): void {
+		this.isLoading = true;
+		this.authService.members$.subscribe(members => {
+			this.members = members;
+		}, error => {
+			this.handleError(error);
+		});
+		console.log(this.members);
 
-    this.isLoading = false;
-  }
+		this.isLoading = false;
+	}
 
-  private handleError(error):void
-  {
-    this.error = error;
-    this.hasError = true;
-  }
+	private handleError(error): void {
+		this.error = error;
+		this.hasError = true;
+	}
 
-  // @Input() members: OrganigramModel[];
+	// @Input() members: OrganigramModel[];
 
-  handleNewMember(username: string) {
+	handleNewMember(username: string) {
 
-    this.isLoading = true;
+		this.isLoading = true;
 
-    /*this.authService.createMember(username)
-        .then(member => {
-          member.subscribe();
-        })
-        .catch(error => {
-          this.error = error;
-        });*/
+		/*this.authService.createMember(username)
+			.then(member => {
+			  member.subscribe();
+			})
+			.catch(error => {
+			  this.error = error;
+			});*/
 
-    this.isLoading = false;
-  }
+		this.isLoading = false;
+	}
 
-  add(member: OrganigramModel) {
-    this.members.push(member);
-    console.log(this.members);
-  }
+	add(member: OrganigramModel) {
+		this.members.push(member);
+		console.log(this.members);
+	}
 
 }

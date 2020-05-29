@@ -23,7 +23,7 @@ export class TodoListComponent {
 
 	@Output() itemClicked = new EventEmitter<TodoModel>();
 	@Output() itemToRemove = new EventEmitter<TodoModel>();
-	
+
 	constructor(private todoService: TodoService) {
 	}
 

@@ -43,13 +43,13 @@
 			formControlName="passwordRepeat"
 		>
 		<ng-container *ngTemplateOutlet="required; context: { $implicit: 'passwordRepeat' }"></ng-container>
-
+		
 		<div class="invalid-feedback" *ngIf="form.errors?.passwordRepeat">
 			The passwords don't match!
 		</div>
 	</div>
-
-
+	
+	
 	<button type="submit" [disabled]='!form.dirty'>Submit</button>
 </form>
 

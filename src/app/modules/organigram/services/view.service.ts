@@ -27,11 +27,11 @@ export class ViewService {
 			this.allViews = next;
 			this.allViewsSubject$.next(this.allViews);
 		});
-		
+
 		this.allViewsSubject$.subscribe(next => {
 			this.ownedViews = [];
 			this.publicViews = [];
-			
+
 			next.forEach(view => {
 				if (view.ownerUid == this.currentOwnerId) {
 					this.ownedViews.push(view);
@@ -42,7 +42,7 @@ export class ViewService {
 			});
 
 			this.publicViews.sort((a, b) => a.updatedAt < b.updatedAt ? 1 : -1);
-			
+
 			this.ownedViewsSubject$.next(this.ownedViews);
 			this.publicViewsSubject$.next(this.publicViews);
 		});
@@ -94,14 +94,14 @@ export class ViewService {
 		if (!(await this.viewExists(uid))) {
 			return Promise.resolve(false);
 		}
-		
+
 		return new Promise<boolean>((resolve, reject) => {
 			const view: OrganigramViewModel = this.getView(uid);
-			
-			resolve(this.authService.getUser() != null && view != null && 
+
+			resolve(this.authService.getUser() != null && view != null &&
 				(view.visibility == OrganigramViewVisibility.Public ||
-				view.visibility == OrganigramViewVisibility.Unlisted ||
-				view.ownerUid == this.authService.getUser().uid));
+					view.visibility == OrganigramViewVisibility.Unlisted ||
+					view.ownerUid == this.authService.getUser().uid));
 		});
 	}
 
@@ -113,7 +113,7 @@ export class ViewService {
 	getViewsOfOwner(ownerUid: string): OrganigramViewModel[] {
 		if (ownerUid != this.currentOwnerId) {
 			this.currentOwnerId = ownerUid;
-			
+
 			this.ownedViews = [];
 			this.allViews.forEach(view => {
 				if (view.ownerUid == ownerUid) {
@@ -130,7 +130,7 @@ export class ViewService {
 		return this.ownedViewsSubject$.asObservable();
 	}
 
-	
+
 	getPublicViews(amount: number = 0): OrganigramViewModel[] {
 		return amount == 0 ? this.publicViews : this.publicViews.slice(0, amount);
 	}
@@ -142,9 +142,8 @@ export class ViewService {
 				.catch((error) => reject(error));
 		});
 	}
-	
-	async updateView(view: OrganigramViewModel)
-	{
+
+	async updateView(view: OrganigramViewModel) {
 		await this.firestoreReference.doc(view.uid).set(view);
 	}
 }

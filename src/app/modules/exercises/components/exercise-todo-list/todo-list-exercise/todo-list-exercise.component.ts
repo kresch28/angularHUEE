@@ -54,7 +54,7 @@ export class TodoListExerciseComponent extends LoadingAndErrorHandling implement
 
 	handleItemToRemove(todo: TodoModel) {
 		this.loading = true;
-		
+
 		this.todoService.remove(todo.id)
 			.catch(error => this.handleError(error));
 

@@ -1,12 +1,12 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-  name: 'highlight'
+	name: 'highlight'
 })
 export class HighlightPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
-    return value.replace(args, `<span class="highlight">${args}</span>`);
-  }
+	transform(value: any, args?: any): any {
+		return value.replace(args, `<span class="highlight">${args}</span>`);
+	}
 
 }

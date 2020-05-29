@@ -1,28 +1,28 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { OrganigramItemComponent } from './organigram-item.component';
-import { NodesListService} from '../../../../components/welcome/organigram/services/nodes-list.service';
+import {OrganigramItemComponent} from './organigram-item.component';
+import {NodesListService} from '../../../../components/welcome/organigram/services/nodes-list.service';
 
 describe('OrganigramItemComponent', () => {
-  let component: OrganigramItemComponent;
-  let fixture: ComponentFixture<OrganigramItemComponent>;
+	let component: OrganigramItemComponent;
+	let fixture: ComponentFixture<OrganigramItemComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [NodesListService],
-      declarations: [ OrganigramItemComponent ],
-      providers: [NodesListService]
-    })
-    .compileComponents();
-  }));
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			imports: [NodesListService],
+			declarations: [OrganigramItemComponent],
+			providers: [NodesListService]
+		})
+			.compileComponents();
+	}));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(OrganigramItemComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(OrganigramItemComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  /*it('should create', () => {
-    expect(component).toBeTruthy();
-  });*/
+	/*it('should create', () => {
+	  expect(component).toBeTruthy();
+	});*/
 });

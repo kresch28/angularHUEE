@@ -2,9 +2,9 @@
 	<h3>open ToDos</h3>
 	<div cdkDropList class="draggableList" (cdkDropListDropped)="drop($event)">
 		<app-todo-list-item cdkDrag class="draggable"
-			*ngFor="let todo of items; trackBy: trackByFunction" [todo]="todo"
-			(itemClicked)="onItemClicked(todo)"
-			(itemToRemove)="onItemToRemove(todo)">
+							*ngFor="let todo of items; trackBy: trackByFunction" [todo]="todo"
+							(itemClicked)="onItemClicked(todo)"
+							(itemToRemove)="onItemToRemove(todo)">
 		</app-todo-list-item>
 	</div>
 </div>

@@ -27,7 +27,7 @@ export class AuthorisationService {
 			});
 	}
 
-	get members$(){
+	get members$() {
 		return (this.membersSubject$.hasError) ? this.membersSubject$.thrownError : this.membersSubject$.asObservable();
 	}
 
@@ -51,6 +51,7 @@ export class AuthorisationService {
 			});
 
 	}
+
 	/*
         async createMember(username: string): Promise<Observable<OrganigramModel>> {
             const member: OrganigramModel = {
