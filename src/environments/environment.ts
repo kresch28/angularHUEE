@@ -11,7 +11,7 @@ export const environment = {
 		projectId: "angular-organizer-2d471",
 		storageBucket: "angular-organizer-2d471.appspot.com",
 		messagingSenderId: "770714703729",
-		appId: "1:770714703729:web:955baf0f2dedfc564b88d0"
+		appId: "1:770714703729:web:955baf0f2dedfc564b88d0",
 	}
 };
 
