@@ -10,6 +10,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ExercisesModule} from "../exercises/exercises.module";
 import {FormsModule} from "@angular/forms";
 import {MatRadioModule} from "@angular/material/radio";
+import { OrganigramPublicOverviewComponent } from './components/organigram-public-overview/organigram-public-overview.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {MatRadioModule} from "@angular/material/radio";
 		OrganigramComponent,
 		OrganigramItemComponent,
 		OrganigramLatestComponent,
-		OrganigramWrapperComponent
+		OrganigramWrapperComponent,
+		OrganigramPublicOverviewComponent
 	],
     imports: [
         CommonModule,
@@ -30,7 +32,8 @@ import {MatRadioModule} from "@angular/material/radio";
     ],
 	exports: [
 		OrganigramRoutingModule,
-		OrganigramLatestComponent
+		OrganigramLatestComponent,
+		OrganigramPublicOverviewComponent
 	]
 })
 export class OrganigramModule {

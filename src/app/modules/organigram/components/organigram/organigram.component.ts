@@ -13,9 +13,13 @@ export class OrganigramComponent implements OnInit {
 	@Output() error: EventEmitter<Error> = new EventEmitter<Error>();
 
 	editingTitle: boolean = false;
+
+	hasWarning: boolean = false;
+	warning: string = "";
+
 	private titleBefore: string;
-	
-	visibilities = { "Private": OrganigramViewVisibility.Private, "Unlisted": OrganigramViewVisibility.Unlisted, "Public": OrganigramViewVisibility.Public };
+
+	visibilities = {"Private": OrganigramViewVisibility.Private, "Unlisted": OrganigramViewVisibility.Unlisted, "Public": OrganigramViewVisibility.Public};
 
 	constructor(private authService: AuthenticationService, private viewService: ViewService) {
 	}
@@ -27,13 +31,19 @@ export class OrganigramComponent implements OnInit {
 	}
 
 	itemMoved(event: OrganigramItemMovedEvent) {
-		this.currentView.usedUsersInformation.forEach(userInformation => {
-			if (userInformation.uid == event.senderUid) {
-				userInformation.position = event.newPosition;
-			}
-		});
-		
-		this.update();
+		if (this.isOwner) {
+			this.currentView.usedUsersInformation.forEach(userInformation => {
+				if (userInformation.uid == event.senderUid) {
+					userInformation.position = event.newPosition;
+				}
+			});
+
+			this.update();
+		}
+		else {
+			this.hasWarning = true;
+			this.warning = "Since you are not the owner of this view, your changes will not be saved!";
+		}
 	}
 
 	update() {
@@ -45,14 +55,20 @@ export class OrganigramComponent implements OnInit {
 
 	stopEditTitle(discardChanges = false) {
 		this.editingTitle = false;
-		
+
 		if (discardChanges) {
 			this.currentView.title = this.titleBefore;
 		}
 	}
 
 	startEditTitle() {
-		this.titleBefore = this.currentView.title;
-		this.editingTitle = true;
+		if (this.isOwner) {
+			this.titleBefore = this.currentView.title;
+			this.editingTitle = true;
+		}
+	}
+
+	get isOwner() {
+		return this.authService.getUser().uid == this.currentView.ownerUid;
 	}
 }

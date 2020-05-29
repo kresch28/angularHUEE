@@ -6,11 +6,9 @@
 	your latest edited organigrams
 </h3>
 
-<ul>
-	<li>Some public organigram</li>
-	<li>TODO: load public organigrams or display an error, that there are none</li>
-</ul>
+<app-organigram-public-overview></app-organigram-public-overview>
 
+<hr>
 <app-organigram-latest *ngIf="authService.isLoggedIn"></app-organigram-latest>
 
 <hr>

@@ -60,7 +60,7 @@ export class OrganigramWrapperComponent extends LoadingAndErrorHandling implemen
 	}
 
 	private async viewIsAllowedToSee(id: string): Promise<boolean> {
-		return await this.viewService.viewIsAllowedToSee(id);
+		return await this.viewService.viewIsAllowedToBeSeenBy(id);
 	}
 
 	createNew() {

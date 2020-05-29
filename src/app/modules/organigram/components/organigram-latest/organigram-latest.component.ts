@@ -17,7 +17,7 @@ export class OrganigramLatestComponent extends LoadingAndErrorHandling implement
 	shownViews: OrganigramViewModel[] = [];
 
 
-	constructor(private viewService: ViewService, private authService: AuthenticationService) {
+	constructor(private viewService: ViewService, public authService: AuthenticationService) {
 		super();
 	}
 

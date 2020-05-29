@@ -18,6 +18,9 @@ export class ViewService {
 	private ownedViewsSubject$: Subject<OrganigramViewModel[]> = new Subject<OrganigramViewModel[]>();
 	private currentOwnerId: string = "";
 
+	private publicViews: OrganigramViewModel[] = [];
+	private publicViewsSubject$: Subject<OrganigramViewModel[]> = new Subject<OrganigramViewModel[]>();
+
 	constructor(private firestore: AngularFirestore, private authService: AuthenticationService, private usersService: UserService) {
 		this.firestoreReference = firestore.collection<OrganigramViewModel>('view');
 		this.firestoreReference.valueChanges().subscribe(next => {
@@ -27,13 +30,21 @@ export class ViewService {
 		
 		this.allViewsSubject$.subscribe(next => {
 			this.ownedViews = [];
+			this.publicViews = [];
+			
 			next.forEach(view => {
 				if (view.ownerUid == this.currentOwnerId) {
 					this.ownedViews.push(view);
 				}
+				if (view.visibility == OrganigramViewVisibility.Public) {
+					this.publicViews.push(view);
+				}
 			});
 
+			this.publicViews.sort((a, b) => a.updatedAt < b.updatedAt ? 1 : -1);
+			
 			this.ownedViewsSubject$.next(this.ownedViews);
+			this.publicViewsSubject$.next(this.publicViews);
 		});
 	}
 
@@ -79,7 +90,7 @@ export class ViewService {
 		});
 	}
 
-	async viewIsAllowedToSee(uid: string): Promise<boolean> {
+	async viewIsAllowedToBeSeenBy(uid: string): Promise<boolean> {
 		if (!(await this.viewExists(uid))) {
 			return Promise.resolve(false);
 		}
@@ -113,6 +124,15 @@ export class ViewService {
 		}
 
 		return this.ownedViews;
+	}
+
+	getPublicViews$(): Observable<OrganigramViewModel[]> {
+		return this.ownedViewsSubject$.asObservable();
+	}
+
+	
+	getPublicViews(amount: number = 0): OrganigramViewModel[] {
+		return amount == 0 ? this.publicViews : this.publicViews.slice(0, amount);
 	}
 
 	async deleteView(uid: string) {
