@@ -19,10 +19,10 @@ describe('TodoService', () => {
     /*it('should be created', () => {
         expect(service).toBeTruthy();
     });*/
-    it('should add todo to list and emit added todo object', (done) => {
+    /*it('should add todo to list and emit added todo object', (done) => {
         service.create('some todo');
         expect(service).not.toBeNull();
         done();
-    });
+    });*/
 
 });
